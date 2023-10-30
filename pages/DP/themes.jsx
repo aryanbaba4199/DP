@@ -3,13 +3,17 @@ import PostForm from "../Admin/postform";
 
 import axios from "axios";
 import Header from "../Home/header"
-import { session } from "passport";
+import {useSession} from "next-auth/react"
+
 
 function Posts() {
-
+  const {data : session} = useSession();
   const [posts, setPosts] = useState([]);
 
-
+  let useremail = "";
+  if(session){
+    useremail = session.user.email;
+  }
   const fetchPosts = async () => {
     try {
       const response = await axios.get("/api/postHandler");
