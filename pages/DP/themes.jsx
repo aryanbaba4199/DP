@@ -3,6 +3,7 @@ import PostForm from "../Admin/postform";
 
 import axios from "axios";
 import Header from "../Home/header"
+import { session } from "passport";
 
 function Posts() {
 
@@ -74,7 +75,7 @@ function Posts() {
         <div className="homeblank"></div>
       <div className="glimpseblank"></div>
       <div className="create-container">
-        {isAuthenticated && allowedEmails.includes(useremail)  && (
+        {session && allowedEmails.includes(useremail)  && (
           <>
             <h1>Create a Post</h1>
             <PostForm onSubmit={handleSubmit} />
