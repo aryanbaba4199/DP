@@ -5,8 +5,7 @@ const connectDB = async () => {
     const conn = await mongoose.connect(
         "mongodb+srv://aryanbaba4199:Aryan7277@cluster0.swtqxeq.mongodb.net/?retryWrites=true&w=majority", 
         {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
+      
     });
 
     console.log(`Connected to Database : `);
