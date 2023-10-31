@@ -15,8 +15,8 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     })
   ],
-  secret: process.env.NEXTAUTH_SECRET,
-  callbackUrl: "https://dp-sand.vercel.app/api/auth/callback/google"
+  secret: "ramdsfsdfshfksdbfksbfkjfksdfksdfksdfksfs",
+  
 }
 
 export default NextAuth(authOptions)
