@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 // Social Netwoek handling
@@ -32,6 +33,37 @@ function Tabmenu() {
     document.body.className = toggle;
   }, [toggle]);
 
+  // --------Storing user in database-----------
+  const bookingbtn = async () => {
+    let user = [];
+    if (session) {
+      user = session.user;
+
+      let messagecode = "userprofile";
+      try {
+        const response = await axios.post(
+          "api/userHandler",
+          { messagecode, user },
+          { headers: { "Content-Type": "application/json" } }
+        );
+        if (response.status === 200) {
+          console.log("Welcome");
+        }
+        if (!response.ok) {
+          console.log("Welcome Back ");
+        }
+      } catch (err) {
+        if (err.response && err.response.status === 404) {
+          
+          console.log("Welcome Back ");
+        } else {
+          // Handle other errors
+          console.log("Error:", err.message);
+        }
+      }
+    }
+  };
+
   return (
     <>
       <div className="headerblank"></div>
@@ -40,7 +72,7 @@ function Tabmenu() {
         <div className="tab">
           <div className="logo-holder">
             <Link href="/">
-            <img src="/dp.png" alt="Logo" className="imglogo" href="/home" />
+              <img src="/dp.png" alt="Logo" className="imglogo" href="/home" />
             </Link>
             <div className="sitenamecontainer">
               <div className="snc">
@@ -56,25 +88,21 @@ function Tabmenu() {
               </div>
             </div>
             <div className="auth-mobile">
-            <div className="">
-            {session ? (
-              <>
-                <img src={image} className="imglogo" />
-                
-                
-              </>
-            ) : (
-              <>
-                <img
-                  src="https://cdn-icons-png.flaticon.com/256/2602/2602046.png"
-                  className="imglogo"
-                />
-                
-              </>
-            )}
-          </div>
-          </div>
-            
+              <div className="">
+                {session ? (
+                  <>
+                    <img src={image} className="imglogo" />
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/256/2602/2602046.png"
+                      className="imglogo"
+                    />
+                  </>
+                )}
+              </div>
+            </div>
 
             {/* for mobile devices */}
           </div>
@@ -86,9 +114,11 @@ function Tabmenu() {
           <Link href="/DP/service" className="bio btn-support">
             <text> Services</text>
           </Link>
-          <Link href="/DP/booking" className="bio btn-support">
-            <text> Booking </text>
-          </Link>
+
+          <text onClick={bookingbtn} className="bio btn-support">
+            {" "}
+            Booking{" "}
+          </text>
 
           <Link href="/DP/orderstatus" className="bio btn-support">
             <text> Cart </text>

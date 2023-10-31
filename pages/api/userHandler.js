@@ -5,23 +5,40 @@ ConnectDB();
 
 export default async function handler(req, res) {
   let messagecode = req.body.messagecode;
+  
 
   {
     /* _______________User sign up ________________ */
   }
+  
 
-  if (req.method === "POST" && messagecode === "signup") {
+  if (req.method === "POST" && messagecode === "userprofile") {
+    
+    
     try {
-      const { name, email, password } = req.body;
-      const newUser = new User({
-        name: name,
-        email: email,
-        password: password,
-      });
+      const user = req.body.user;
+      const useremail = req.body.user.email;
       
-      await newUser.save();
-      console.log("user saved ", newUser.toObject());
-      res.status(201).json({ message: "success" });
+       const userexist = await User.find({ email : useremail});
+       
+      if (userexist.length=== 0) {
+        const newUser = new User({
+          name: user.name,
+          email: user.email,
+          image : user.image,
+        });
+        
+        await newUser.save();
+        console.log("user saved ", newUser.toObject());
+        res.status(200).json({ message: "success" });
+      }
+      else{
+        console.log("no");
+        res.status(404).json({ message: "user exists" });
+      }
+      
+
+    
     } catch (err) {
       console.log("Error is : ", err);
       res.status(500).json({ message: err.message });
@@ -30,6 +47,7 @@ export default async function handler(req, res) {
 
   {
     /* ______________User Signing in_________________________ */
+   
   }
   if (req.method === "POST" && messagecode === "signin") {
     const { email, password } = req.body;

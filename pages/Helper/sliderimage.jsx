@@ -29,7 +29,7 @@ export default function SliderImage() {
   };
 
   return (
-    <div className="box1">
+    <div className="imgslider-box">
       {images.map((image, index) => (
         <img
           key={index}

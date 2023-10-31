@@ -24,7 +24,7 @@ const ImageSlider = () => {
       <div className="wholecontainer">
         <div className="firstc">
           <div className="fs-inside">
-            <div className="box1">
+            <div className="imgslider-box">
               <ImgSlider/>
             </div>
             <div className="fsheading">

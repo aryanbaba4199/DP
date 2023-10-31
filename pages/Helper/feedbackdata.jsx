@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const blankStar = "https://cdn-icons-png.flaticon.com/256/12626/12626474.png";
-const filledStar = "https://free.clipartof.com/490-Free-Clipart-Of-A-Geometric-Star-Colorful.png";
+const filledStar =
+  "https://free.clipartof.com/490-Free-Clipart-Of-A-Geometric-Star-Colorful.png";
 
 export default function feedbackdata() {
   const [dbFeedback, setdbFeedback] = useState([]);
@@ -30,15 +31,16 @@ export default function feedbackdata() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (dbFeedback.length > 0) {
-        setfdbkIndex((prevIndex) => (prevIndex - 1 + dbFeedback.length) % dbFeedback.length);
+        setfdbkIndex(
+          (prevIndex) => (prevIndex - 1 + dbFeedback.length) % dbFeedback.length
+        );
       }
     }, 2000);
-  
+
     return () => {
       clearInterval(interval);
     };
   }, [dbFeedback]);
-  
 
   // ------------Setting stars for feedback --------------------
   const renderStars = () => {
@@ -60,27 +62,26 @@ export default function feedbackdata() {
 
   return (
     <div className="feedback-card">
-        <div className="card4">
-            <div className="bg2">
-      {dbFeedback.length > 0 && (
-        <div className="feedback-container">
-            
-          <span className=""><h3 className="title">{dbFeedback[fdbkindex].name}</h3></span>
-          
-          <p className="fstext">
-            {dbFeedback[fdbkindex].feedback !== ""
-              ? dbFeedback[fdbkindex].feedback
-              : "Awesome services"}
-          </p>
-          <div className="star-container">
-            {renderStars(dbFeedback[fdbkindex].rating)}
-          </div>
+      <div className="card4">
+        <div className="bg2">
+          {dbFeedback.length > 0 && (
+            <div className="feedback-container">
+              <span className="">
+                <h3 className="title">{dbFeedback[fdbkindex].name}</h3>
+              </span>
+
+              <p className="fstext">
+                {dbFeedback[fdbkindex].feedback !== ""
+                  ? dbFeedback[fdbkindex].feedback
+                  : "Awesome services"}
+              </p>
+              <div className="star-container">
+                {renderStars(dbFeedback[fdbkindex].rating)}
+              </div>
+            </div>
+          )}
         </div>
-        
-    
-      )}
-      </div>
-      <div className="blob"></div>
+        <div className="blob"></div>
       </div>
     </div>
   );

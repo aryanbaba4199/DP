@@ -1,5 +1,8 @@
 import React from "react";
 import Header from "../Home/header";
+const linkedin = "https://cdn-icons-png.flaticon.com/256/1384/1384014.png"
+const inimage = "https://cdn-icons-png.flaticon.com/256/4401/4401407.png"
+const fbimage = "https://cdn-icons-png.flaticon.com/256/1384/1384005.png"
 
 const Teamfn = ({ imageSrc, Name, designation }) => (
   <div class="card2">
@@ -7,9 +10,7 @@ const Teamfn = ({ imageSrc, Name, designation }) => (
     <div class="logo">
       <img src={imageSrc} className="team-img" />
       <h3 className="team-name">{Name}</h3>
-      <p style={{ fontSize: 15 }} className="team-name">
-        {designation}
-      </p>
+      <p style={{fontSize : 15}} className="team-name">{designation}</p>
     </div>
 
     <a href="#">
@@ -31,6 +32,7 @@ const Teamfn = ({ imageSrc, Name, designation }) => (
             src="https://cdn-icons-png.flaticon.com/256/4401/4401407.png"
             className="svg"
           />
+          
         </span>
       </div>
     </a>
