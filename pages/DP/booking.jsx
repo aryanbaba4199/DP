@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { useSession } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import Bottom from "../Helper/bottom";
 
 const WeddingBooking = () => {
@@ -18,6 +18,9 @@ const WeddingBooking = () => {
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [msg, setmsg] = useState("");
 
+
+  // ----------sign in warnings --------------------
+  
   //-------setting name ----------------
   useEffect(() => {
     if (session) {
@@ -144,6 +147,7 @@ const WeddingBooking = () => {
 
   //_________________Handling Booking Information _____________
   const handleBook = async () => {
+    if (session){
     toast("Booking In process...");
 
     setBookingConfirmed(true);
@@ -154,7 +158,7 @@ const WeddingBooking = () => {
     if (session) {
       email = session.user.email;
     }
-    console.log(email);
+    
     const bookingData = {
       name,
       email,
@@ -167,6 +171,7 @@ const WeddingBooking = () => {
       status,
       payment,
     };
+    
     window.location.href = "orderstatus";
 
     try {
@@ -190,6 +195,17 @@ const WeddingBooking = () => {
     } catch (error) {
       console.error("Error:", error);
     }
+  }
+  else{
+    toast.error(
+      <>
+      <p>Sign in mandatory for Booking...</p>
+    
+      <button className="bio btn-support" onClick={() => signIn()}>Sign in</button>
+      
+      </>
+    );
+  }
   };
 
   return (

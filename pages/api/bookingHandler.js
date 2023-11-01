@@ -9,6 +9,7 @@ export default async function handler(req, res){
     {/*_________________Creating Bookings ______________ */}
     if(req.method === "POST" && messagecode === "createbooking"){
        const bookingData = req.body.bookingData;
+       
        try{
         const booking = new bkSchema(bookingData);
         await booking.save();

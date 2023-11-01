@@ -104,24 +104,25 @@ function OrderDetails() {
           <div className="user-data-container">
             {userData.map((userItem, index) => (
               <div key={index._id} className="user-data">
-                <h4 className="title3">Name: {userItem.name}</h4>
+                <h4 className="title">Name: {userItem.name}</h4>
+                
                 <h6 className="title3">Email: {userItem.email}</h6>
-                <h6 className="title3">Mobile: {userItem.mobile}</h6>
+                <h6 className="">Mobile: {userItem.mobile}</h6>
                 <h6 className="title3">Address: {userItem.address}</h6>
                 <h6 className="title3">
-                  Function Type: {userItem.functionType}
+                  Function Type: {userItem.selectedFunctionType}
                 </h6>
-                <h6 className="title3">
-                  Services:{" "}
-                  {Array.isArray(userItem.selectedServices)
+                <h6 className="title card4">
+                  Services: {" "}
+                  <p className="follow">{Array.isArray(userItem.selectedServices)
                     ? userItem.selectedServices.join(", ")
-                    : "N/A"}
+                    : "N/A"}</p>
                 </h6>
                 <h6 className="title3">Message: {userItem.msg}</h6>
                 <h6 className="title3">Time: {userItem.time}</h6>
                 <h6 className="title3">Status : {userItem.status}</h6>
                 <h6 className="title3">Payments : {userItem.payment}</h6>
-                <div className="crud">
+                <div className="logo-container">
                   <img
                     src="https://cdn-icons-png.flaticon.com/256/6861/6861362.png"
                     className="delete-logo"

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { ToastContainer, toast } from "react-toastify";
 
 // Social Netwoek handling
 
@@ -33,7 +34,7 @@ function Tabmenu() {
     document.body.className = toggle;
   }, [toggle]);
 
-  // --------Storing user in database-----------
+  // --------User detail saving Redirecting to booking-----------
   const bookingbtn = async () => {
     let user = [];
     if (session) {
@@ -48,26 +49,29 @@ function Tabmenu() {
         );
         if (response.status === 200) {
           console.log("Welcome");
+          window.location.href = "/DP/booking";
         }
         if (!response.ok) {
           console.log("Welcome Back ");
+          window.location.href = "/DP/booking";
         }
       } catch (err) {
         if (err.response && err.response.status === 404) {
-          
           console.log("Welcome Back ");
+          window.location.href = "/DP/booking";
         } else {
-          
           console.log("Error:", err.message);
+          window.location.href = "/DP/booking";
         }
       }
+    } else {
+      toast("Log in Reccomended!");
+      window.location.href = "/DP/booking";
     }
   };
 
   return (
     <>
-      <div className="headerblank"></div>
-
       <div className="wholeheader">
         <div className="tab">
           <div className="logo-holder">
@@ -132,7 +136,7 @@ function Tabmenu() {
           <Link href="/DP/career" className="bio btn-support">
             <text> Career </text>
           </Link>
-          <Link href="/DP/aboutus" className="bio btn-support">
+          <Link href="/DP/about" className="bio btn-support">
             <text> About </text>
           </Link>
           <text className="bio btn-support" onClick={() => tooggleTheme()}>
@@ -167,6 +171,7 @@ function Tabmenu() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

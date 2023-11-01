@@ -89,7 +89,7 @@
     left: 0;
     position: fixed;
     box-shadow: 1rem 1rem 2rem rgb(89, 0, 94);
-    background-color: var(--bg-color);
+    background: linear-gradient(43deg, rgb(255, 255, 255) 0%, rgb(255, 121, 233) 46%, rgb(255, 181, 70) 100%);
     
   }
   .part3{
@@ -103,7 +103,7 @@
     display: flex;
     align-items: flex-start;
     width: 26rem;
-    background-color: var(--bg-color);
+    
     color: var(--color-goldenrod);
     padding: 0.625rem 0;
     height: auto;
@@ -1347,14 +1347,19 @@
 
 .user-data-container{
   display: flex;
+  flex-direction: row;
 width: 100%;
 flex-wrap: wrap;
 box-shadow: 15px 15px 30px #bebebe,
              -15px -15px 30px #ffffff;
 justify-content: space-around;
+border-radius: 2rem;
 }
 .user-data{
-  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
   background : linear-gradient(rgb(255, 255, 255), rgb(164, 164, 255));
 }
 

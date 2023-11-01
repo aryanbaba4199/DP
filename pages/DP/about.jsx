@@ -1,10 +1,12 @@
 import React from "react";
+import Header from "../Home/header"
+import Bottom from "../Helper/bottom"
 
 
 const CompanyTopic = ({ topic, topicDetail }) => (
-  <div className="card card2">
-    <h4 className="topicstyle">{topic}</h4>
-    <p className="tdetail">{topicDetail}</p>
+  <div className="card4 container">
+    <h4 className="title">{topic}</h4>
+    <p className="">{topicDetail}</p>
   </div>
 );
 
@@ -59,13 +61,14 @@ const topics = [
 const TopicList = () => {
   return (
     <>
-    <div className="gpextrablank"></div>
+    <Header/>
+    <div className="homeblank"></div>
     <div className="wholeco">
       <div className="company-info">
         <section className="info">
           <div className="dpinfo">
-            <h2>Dream Planner</h2>
-            <h5>Your Event Our Responsibilities</h5>
+            <h2 className="sitename1">Dream Planner</h2>
+            <h5 className="title2">Your Event Our Responsibilities</h5>
           </div>
         </section>
       </div>
@@ -84,6 +87,7 @@ const TopicList = () => {
         
       </div>
     </div>
+    <Bottom/>
     </>
   );
 };
