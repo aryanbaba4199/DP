@@ -70,6 +70,17 @@ function Tabmenu() {
     }
   };
 
+  //-------Admin Functionality -------
+  let useremail = "";
+  if (session) {
+    useremail = session.user.email;
+  }
+  const allowedEmails = [
+    "aryanbaba4199@gmail.com",
+    "dreamplanner4199@gmail.com",
+    "an.rajdubey@gmail.com",
+  ];
+
   return (
     <>
       <div className="wholeheader">
@@ -151,6 +162,13 @@ function Tabmenu() {
               Login
             </text>
           )}
+        {
+          session && allowedEmails.includes(useremail)&& (
+            <Link href="/Admin/main" className="bio btn-support">
+            <text >Admin</text>
+            </Link>
+          )
+        } 
         </div>
         <div className="user-container">
           <div className="auth1">
