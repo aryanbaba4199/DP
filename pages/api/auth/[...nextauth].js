@@ -20,7 +20,7 @@ export const authOptions = {
   ],
   
 
-  secret: "sifhiushisfhTuhfjksdbfvTHIJHINkbjsbfjfbsjhbJB",
+  secret: process.env.NEXTAUTH_SECRET,
   
 }
 
