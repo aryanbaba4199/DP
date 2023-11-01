@@ -4,9 +4,9 @@ import Bottom from "../Helper/bottom"
 
 
 const CompanyTopic = ({ topic, topicDetail }) => (
-  <div className="card4 container">
+  <div className="myCard">
     <h4 className="title">{topic}</h4>
-    <p className="">{topicDetail}</p>
+    <p className="title4">{topicDetail}</p>
   </div>
 );
 
@@ -63,11 +63,11 @@ const TopicList = () => {
     <>
     <Header/>
     <div className="homeblank"></div>
-    <div className="wholeco">
+    <div className="wholecontainer">
       <div className="company-info">
         <section className="info">
           <div className="dpinfo">
-            <h2 className="sitename1">Dream Planner</h2>
+            <h2 className="title">Dream Planner</h2>
             <h5 className="title2">Your Event Our Responsibilities</h5>
           </div>
         </section>

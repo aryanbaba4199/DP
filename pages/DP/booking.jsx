@@ -18,9 +18,8 @@ const WeddingBooking = () => {
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [msg, setmsg] = useState("");
 
-
   // ----------sign in warnings --------------------
-  
+
   //-------setting name ----------------
   useEffect(() => {
     if (session) {
@@ -147,72 +146,72 @@ const WeddingBooking = () => {
 
   //_________________Handling Booking Information _____________
   const handleBook = async () => {
-    if (session){
-    toast("Booking In process...");
-
-    setBookingConfirmed(true);
-    let time = new Date().toISOString().split("T")[0];
-    let email = "";
-    let status = "Processing...";
-    let payment = "No Transaction Found";
     if (session) {
-      email = session.user.email;
-    }
-    
-    const bookingData = {
-      name,
-      email,
-      address,
-      mobile,
-      selectedServices: services,
-      msg,
-      selectedFunctionType,
-      time,
-      status,
-      payment,
-    };
-    
-    window.location.href = "orderstatus";
+      toast("Booking In process...");
 
-    try {
-      let messagecode = "createbooking";
-      const response = await axios.post(
-        "/api/bookingHandler",
-        { messagecode, bookingData },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        console.log("Success");
-        setBookingConfirmed(true);
-      } else {
-        setBookingConfirmed(true);
+      setBookingConfirmed(true);
+      let time = new Date().toISOString().split("T")[0];
+      let email = "";
+      let status = "Processing...";
+      let payment = "No Transaction Found";
+      if (session) {
+        email = session.user.email;
       }
-    } catch (error) {
-      console.error("Error:", error);
+
+      const bookingData = {
+        name,
+        email,
+        address,
+        mobile,
+        selectedServices: services,
+        msg,
+        selectedFunctionType,
+        time,
+        status,
+        payment,
+      };
+
+      window.location.href = "orderstatus";
+
+      try {
+        let messagecode = "createbooking";
+        const response = await axios.post(
+          "/api/bookingHandler",
+          { messagecode, bookingData },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          console.log("Success");
+          setBookingConfirmed(true);
+        } else {
+          setBookingConfirmed(true);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    } else {
+      toast.error(
+        <>
+          <p>Sign in mandatory for Booking...</p>
+
+          <button className="bio btn-support" onClick={() => signIn()}>
+            Sign in
+          </button>
+        </>
+      );
     }
-  }
-  else{
-    toast.error(
-      <>
-      <p>Sign in mandatory for Booking...</p>
-    
-      <button className="bio btn-support" onClick={() => signIn()}>Sign in</button>
-      
-      </>
-    );
-  }
   };
 
   return (
     <>
       <Header />
       <div className="homeblank"></div>
-      <div className="whole-booking">
+      <div className="wholecontainer">
         <div className="userdetail">
           <h2 className="title">Fill Details</h2>
         </div>
@@ -266,7 +265,7 @@ const WeddingBooking = () => {
           </div>
         </div>
 
-        <div className="card">
+        <div className="bookingcontainer">
           <h3 className="title">Select Your Function</h3>
           <div className="services-div">
             {functionType.map((fn, index) => (
@@ -287,7 +286,7 @@ const WeddingBooking = () => {
           </div>
         </div>
 
-        <div className="bookingcontainer card">
+        <div className="bookingcontainer">
           <h3 className="title">Mark Your Need</h3>
           <div className="bookservices">
             {availableServices.map((service, index) => (
@@ -330,7 +329,7 @@ const WeddingBooking = () => {
           </h2>
         </div>
         <div className="line"></div>
-        <div className="pg-bottom-holder">
+        <div className="">
           <div>
             <div className="myCard">
               <div className="innerCard">
@@ -351,7 +350,7 @@ const WeddingBooking = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="">
             <div className="myCard">
               <div className="innerCard">
                 <div className="frontSide">
@@ -364,7 +363,7 @@ const WeddingBooking = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="user-data-container">
             <div className="myCard">
               <div className="innerCard">
                 <div className="frontSide">
@@ -405,7 +404,7 @@ const WeddingBooking = () => {
           </div>
         </div>
         <div className="line"></div>
-        <Bottom/>
+        <Bottom />
 
         <ToastContainer />
       </div>

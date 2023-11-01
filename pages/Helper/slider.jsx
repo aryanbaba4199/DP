@@ -47,7 +47,7 @@ function FeedbackForm() {
     <>
       <div>
         <p className="title">Please rate your experience </p>
-        <div className="s1 div-shadow star-container">
+        <div className="card4 div-shadow star-container">
           <div className="star-container ">
             {Array.from({ length: 5 }, (_, index) => (
               <img
@@ -67,9 +67,10 @@ function FeedbackForm() {
               value={feedback}
               onChange={(e) => setfeedback(e.target.value)}
             ></input>
-            <label for="input-field" className="input-label follow">
+            <label for="input-field" className=" follow">
               Share Your Experience
             </label>
+            
 
             <span className="input-highlight"></span>
             <p className="bio btn-support " onClick={feedbackSubmit}>

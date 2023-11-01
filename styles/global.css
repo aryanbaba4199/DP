@@ -21,7 +21,6 @@
     --color-black : #2992f4;
     --color-goldenrod : #e74900;
     --color-pink : #ff078f;
-    
     background: linear-gradient(43deg, rgb(207, 212, 255) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
   }
   
@@ -257,6 +256,9 @@
     .card2{
       width: 98% !important;
       margin-left: 0rem !important;
+    }
+    .card4{
+      width: 94% !important;
     }
     .box1{
       width: 70% !important;
@@ -559,7 +561,10 @@
     }
     .myCard{
       width: 100% !important;
-      height: 22rem !important;
+      height: 23rem !important;
+    }
+    .myCard1{
+      
     }
     
     .wholecontainer {
@@ -726,6 +731,12 @@
   font-size: 1.8rem;
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .title4{
+    font-size: 1.3rem;
+    color: #242426;
+    font-weight: 520;
+    word-spacing: 3px;
   }
   
   .innerCard {
@@ -1110,6 +1121,7 @@
     width: 100%;
     padding: 1rem;
   }
+  
 
 
  }
@@ -1379,6 +1391,7 @@ border-radius: 2rem;
 .glimpse-pic{
   border-radius: 1rem;
   height: 30rem;
+  width: 100%;
 }
 .card3 {
   position: relative;
