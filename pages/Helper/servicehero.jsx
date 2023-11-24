@@ -4,9 +4,9 @@ import Header from "../Home/header";
 
 const Serviceprovider = ({ imageSrc, serviceName}) => (
     <div>
-        <div class="myCard">
-          <div class="innerCard">
-            <div class="frontSide">
+        <div className="myCard">
+          <div className="innerCard">
+            <div className="frontSide">
               <img
                 className="service-img"
                 src={imageSrc}

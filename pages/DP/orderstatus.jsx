@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
-
 import axios from "axios";
 import { useRouter } from "next/router";
 import Header from "../Home/header";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 function OrderDetails() {
-  const { data : session } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
-  
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
-   
+
   let name = "";
   let useremail = "";
-  if(session){
+  if (session) {
     name = session.user.name;
     useremail = session.user.email;
   }
-  
 
+  const expBtn = (id) =>{
+    router.push(`/DP/accounting?id=${id}`);
+  }
 
-  
   useEffect(() => {
     if (session) {
       const fetchUserData = async () => {
@@ -48,89 +48,100 @@ function OrderDetails() {
     }
   }, [session, name]);
 
-  
+  const deletebkdata = async (dID) => {
+    try {
+      const response = await axios.delete(`/api/bookingHandler?did=${dID}`);
+      if (response.status === 200) {
+        console.log("deleted");
+        router.reload();
+      } else {
+        console.log("error in response");
+      }
+    } catch (error) {
+      console.error("Error in deleting", error);
+    }
+  };
 
   if (!session) {
     return (
-      <div className="loading">
-        <h2 className="topicstyle">You are not logged in.</h2>
-        <p>Please log in to view your order details.</p>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">You are not logged in.</h2>
+          <p>Please log in to view your order details.</p>
+        </div>
       </div>
     );
   }
 
   if (loading) {
     return (
-      
-      <div className="loading">
-        <h2 className="topicstyle">Loading...</h2>
-        <div class="spinner">
-          <div class="spinner1"></div>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Loading...</h2>
+          <div className="animate-spin h-8 w-8 border-t-4 border-blue-500"></div>
         </div>
       </div>
     );
   }
 
   if (userData.length === 0) {
-    return <div className="card">
-      <div className="homeblank"></div>
-      <Header/>
-      <text className="title title2">Nothing to show....</text>
-      </div>; // Display a message if no data is found
-  }
-  /*______________Delete Handling_______________ */
-  const deletebkdata = async(dID) =>{
-    
-    try{
-      const response = await axios.delete(`/api/bookingHandler?did=${dID}`);
-      if(response.status===200){
-        console.log("deleted");
-        router.reload();
-      } else {console.log("error in response");}
-    }catch (error) {console.error("Error in deleting", error);}
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <Header />
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Nothing to show....</h2>
+        </div>
+      </div>
+    );
   }
   
 
   return (
     <>
-    <Header/>
-      <div className="homeblank"></div>
-      <div className="wholecontainer">
-        <div className="dataintro">
-          <h1 className="title">{name}'s</h1>
-        </div>
-        <div className="">
-          <h2 className="title">Booking Details</h2>
-          <div className="user-data-container">
-            {userData.map((userItem, index) => (
-              <div key={index._id} className="user-data">
-                <h4 className="title">Name: {userItem.name}</h4>
-                
-                <h6 className="title3">Email: {userItem.email}</h6>
-                <h6 className="">Mobile: {userItem.mobile}</h6>
-                <h6 className="title3">Address: {userItem.address}</h6>
-                <h6 className="title3">
-                  Function Type: {userItem.selectedFunctionType}
-                </h6>
-                <h6 className="title card4">
-                  Services: {" "}
-                  <p className="follow">{Array.isArray(userItem.selectedServices)
-                    ? userItem.selectedServices.join(", ")
-                    : "N/A"}</p>
-                </h6>
-                <h6 className="title3">Message: {userItem.msg}</h6>
-                <h6 className="title3">Time: {userItem.time}</h6>
-                <h6 className="title3">Status : {userItem.status}</h6>
-                <h6 className="title3">Payments : {userItem.payment}</h6>
-                <div className="logo-container">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/256/6861/6861362.png"
-                    className="delete-logo"
-                    onClick={() =>deletebkdata(userItem._id)}
-                  />
+      <Header />
+      <div className="mt-20"></div>
+      <div className="bg-gray-100 min-h-screen">
+        <div className="mx-auto p-8">
+          <div className="bg-white p-8 rounded shadow">
+            <h1 className="text-3xl font-bold mb-8">{name}'s Booking Details</h1>
+            <div className=" flex flex-wrap gap-8 ">
+              {userData.map((userItem) => (
+                <div key={userItem._id} className="border p-4 rounded shadow">
+                  <h4 className="text-xl font-bold mb-2">Name: {userItem.name}</h4>
+                  <p className="text-gray-600 mb-2">Email: {userItem.email}</p>
+                  <p className="mb-2">Mobile: {userItem.mobile}</p>
+                  <p className="text-gray-600 mb-2">Address: {userItem.address}</p>
+                  <p className="text-gray-600 mb-2">
+                    Function Type: {userItem.selectedFunctionType}
+                  </p>
+                  <p className="mb-2">
+                    Services:{" "}
+                    <span className="text-gray-600">
+                      {Array.isArray(userItem.selectedServices)
+                        ? userItem.selectedServices.join(", ")
+                        : "N/A"}
+                    </span>
+                  </p>
+                  <p className="text-gray-600 mb-2">Message: {userItem.msg}</p>
+                  <p className="text-gray-600 mb-2">Time: {userItem.time}</p>
+                  <p className="text-gray-600 mb-2">Status: {userItem.status}</p>
+                  <p className="text-gray-600 mb-2">Payments: {userItem.payment}</p>
+
+                  
+                  <button onClick={()=>expBtn(userItem._id)} className="self-center text-white hover:bg-slate-800 font-semibold bg-black p-2 rounded-md my-5">Expenditure Details</button>
+                        
+                  <div className="flex justify-end">
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/256/6861/6861362.png"
+                      alt="delete icon"
+                      className="hover:cursor-pointer"
+                      width={30}
+                      onClick={() => deletebkdata(userItem._id)}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

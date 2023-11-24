@@ -124,10 +124,10 @@ function Tabmenu() {
         </div>
         <div className="part2">
           <Link href="/" className="bio btn-support">
-            <text> Home </text>
+             Home
           </Link>
           <Link href="/DP/service" className="bio btn-support">
-            <text> Services</text>
+             Services
           </Link>
 
           <text onClick={bookingbtn} className="bio btn-support">
@@ -136,19 +136,19 @@ function Tabmenu() {
           </text>
 
           <Link href="/DP/orderstatus" className="bio btn-support">
-            <text> Cart </text>
+             Cart 
           </Link>
           <Link href="/DP/themes" className="bio btn-support">
-            <text> Gallery </text>
+            Gallery
           </Link>
           <Link href="/DP/teams" className="bio btn-support">
-            <text> Team </text>
+            Team
           </Link>
           <Link href="/DP/career" className="bio btn-support">
-            <text> Career </text>
+            Career
           </Link>
           <Link href="/DP/about" className="bio btn-support">
-            <text> About </text>
+            About
           </Link>
           <text className="bio btn-support" onClick={() => tooggleTheme()}>
             Dark
@@ -165,7 +165,7 @@ function Tabmenu() {
         {
           session && allowedEmails.includes(useremail)&& (
             <Link href="/Admin/main" className="bio btn-support">
-            <text >Admin</text>
+            Admin
             </Link>
           )
         } 

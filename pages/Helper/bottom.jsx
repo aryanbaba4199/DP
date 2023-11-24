@@ -1,10 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function bottom() {
   return (
-    <div className="bottom">
-        <div className="contact">
+    <div className="flex gap-72 p-5 bg-slate-800 rounded-lg w-full justify-center">
+        <div className="contact text-white">
           <div className="location">
             <img
               className="imgt"
@@ -15,7 +16,7 @@ export default function bottom() {
             />
             <h3 className="topicstyle">Address</h3>
           </div>
-          <div className="address-div">
+          <div className="grid p-5 text-white">
             <text className="pgalbumtext">Patna, Bihar</text>
             <text className="pgalbumtext">Contact : +917005742790</text>
             <text className="pgalbumtext">
@@ -24,9 +25,9 @@ export default function bottom() {
           </div>
         </div>
 
-        <div className="follow">
+        <div className="follow text-white">
           <h2>Follow us</h2>
-          <div className="social">
+          <div className="social ">
             <Link href="https://www.instagram.com/dreamplanner___/">
               <div className="in">
                 <text className="in">Instagram</text>
@@ -38,7 +39,7 @@ export default function bottom() {
                 />
               </div>
             </Link>
-            <Link href="https://www.facebook.com/AryanbabaRN">
+            <Link href="https://wa.me/+917005742790">
               <div className="wt">
                 <text className="wt">Whatsapp</text>
                 <img
@@ -58,9 +59,9 @@ export default function bottom() {
                 />
               </div>
             </Link>
-            <Link href="https://wa.me/+917005742790">
+            <Link href="https://www.facebook.com/AryanbabaRN">
               <div className="fb">
-                <text className="fb">Facebook</text>
+                <text className="">Facebook</text>
                 <img
                   src="https://cdn-icons-png.flaticon.com/256/2504/2504903.png"
                   className="imgt"
@@ -71,17 +72,21 @@ export default function bottom() {
           </div>
         </div>
 
-        <div className="partner">
-          <h2>Our Channel Partner</h2>
-          <div className="cp">
-            <Link href="https://www.akchhatfilmsproduction.com/">
-              <img
-                src="https://media.licdn.com/dms/image/C4D16AQHz_u7EBZvUoA/profile-displaybackgroundimage-shrink_350_1400/0/1593088031766?e=1700697600&v=beta&t=QyX-KXFlsYOy0qCZXkkRpekwVKGiBMfNiEg8QHZc-P8"
-                width="300rem"
-                height="150rem"
-                alt="Channel Partner"
-                className="akshat"
+        <div className="partner text-white">
+          <h2>Our Other Services</h2>
+          <div className="cp p-5">
+            <Link href="https://stylers.in/">
+              <Image 
+                src="/styler-light.png"
+                width={100}
+                height={20}
+                alt="Stylers"
+                className="akshat p-1"
               />
+            </Link>
+
+            <Link href="https://www.akchhatfilmsproduction.com/">
+              <text className='akshat p-2'>Akshat Films Production</text>
             </Link>
           </div>
         </div>

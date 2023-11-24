@@ -4,20 +4,22 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const blankStar = "https://cdn-icons-png.flaticon.com/256/12626/12626474.png";
-const filledStar = "https://free.clipartof.com/490-Free-Clipart-Of-A-Geometric-Star-Colorful.png";
+const blankStar =
+  "https://cdn-icons-png.flaticon.com/256/12626/12626474.png";
+const filledStar =
+  "https://free.clipartof.com/490-Free-Clipart-Of-A-Geometric-Star-Colorful.png";
 
 function FeedbackForm() {
   const { data: session } = useSession();
   const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState(0);
   const [rating, setRating] = useState(0);
-  const [feedback, setfeedback] = useState("");
+  const [feedback, setFeedback] = useState("");
 
   const handleStarClick = (starIndex) => {
     setRating(starIndex);
   };
 
-  //------------Getting commenter details--------
+  // Getting commenter details
   let name = "Guest";
   let email = "guest";
   if (session) {
@@ -25,7 +27,7 @@ function FeedbackForm() {
     email = session.user.email;
   }
 
-  //---------Storing Feedback---------
+  // Storing Feedback
   const feedbackSubmit = async () => {
     try {
       const response = await axios.post(
@@ -44,45 +46,42 @@ function FeedbackForm() {
   };
 
   return (
-    <>
-      <div>
-        <p className="title">Please rate your experience </p>
-        <div className="card4 div-shadow star-container">
-          <div className="star-container ">
-            {Array.from({ length: 5 }, (_, index) => (
-              <img
-                key={index}
-                className="delete-logo"
-                src={index < rating ? filledStar : blankStar}
-                alt={`Star ${index + 1}`}
-                onClick={() => handleStarClick(index + 1)}
-              />
-            ))}
-          </div>
-          <div className="input-container">
-            <input
-              placeholder="Share Your Experience"
-              className="input-field"
-              type="text"
-              value={feedback}
-              onChange={(e) => setfeedback(e.target.value)}
-            ></input>
-            <label for="input-field" className=" follow">
-              Share Your Experience
-            </label>
-            
-
-            <span className="input-highlight"></span>
-            <p className="bio btn-support " onClick={feedbackSubmit}>
-              Submit
-            </p>
-          </div>
+    <div className="bg-slate-700 text-white p-4 md:p-8 max-w-screen-md mx-auto rounded-3xl">
+      <p className="text-xl text-white md:text-2xl font-bold mb-8">Please rate your experience</p>
+      <div className="card4 p-4 md:p-8 shadow-md flex flex-col md:flex-row justify-between">
+        <div className="star-container flex items-center">
+          {Array.from({ length: 5 }, (_, index) => (
+            <img
+              key={index}
+              className="delete-logo cursor-pointer"
+              src={index < rating ? filledStar : blankStar}
+              alt={`Star ${index + 1}`}
+              onClick={() => handleStarClick(index + 1)}
+            />
+          ))}
         </div>
-        <p className="slogan">You rated: {rating} stars</p>
+        <div className="input-container mt-4 md:mt-0 md:ml-4 flex-1">
+          <input
+            placeholder="write feedback here..."
+            className="input-field w-full p-2 border border-gray-300 rounded"
+            type="text"
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+          />
+          <label htmlFor="input-field" className="block text-white text-sm mt-1">
+            Share Your Experience
+          </label>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600"
+            onClick={feedbackSubmit}
+          >
+            Submit
+          </button>
+        </div>
       </div>
-
+      <p className="text-lg mt-4 md:mt-8">You rated: {rating} stars</p>
       <ToastContainer />
-    </>
+    </div>
   );
 }
 
