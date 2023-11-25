@@ -3,7 +3,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Header from "../Home/header";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
+import { TiStarburst } from "react-icons/ti";
+
 
 function OrderDetails() {
   const { data: session } = useSession();
@@ -124,11 +125,13 @@ function OrderDetails() {
                   </p>
                   <p className="text-gray-600 mb-2">Message: {userItem.msg}</p>
                   <p className="text-gray-600 mb-2">Time: {userItem.time}</p>
-                  <p className="text-gray-600 mb-2">Status: {userItem.status}</p>
-                  <p className="text-gray-600 mb-2">Payments: {userItem.payment}</p>
+                  <p className="text-lime-600 mb-2 font-semibold">Status: {userItem.status}</p>
+                  <p className="text-gray-600 mb-2">Total Paid : {userItem.payment}</p>
+
+                  <span className="text-lg flex font-semibold p2"> <TiStarburst className="my-1 p-1" />Fund Details </span>
+                  
 
                   
-                  <button onClick={()=>expBtn(userItem._id)} className="self-center text-white hover:bg-slate-800 font-semibold bg-black p-2 rounded-md my-5">Expenditure Details</button>
                         
                   <div className="flex justify-end">
                     <img

@@ -1013,7 +1013,7 @@
 .container input {
   position: absolute;
   opacity: 0;
-  cursor: pointer;
+  
   height: 0;
   width: 0;
  }
@@ -1021,7 +1021,7 @@
  .container {
   display: flex;
   position: relative;
-  cursor: pointer;
+  
   margin-top: 1rem;
   font-size: 25px;
   user-select: none;
