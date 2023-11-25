@@ -2,9 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const blankStar = "https://cdn-icons-png.flaticon.com/256/12626/12626474.png";
+const blankStar = "https://cdn-icons-png.flaticon.com/256/16/16666.png";
 const filledStar =
-  "https://free.clipartof.com/490-Free-Clipart-Of-A-Geometric-Star-Colorful.png";
+  "https://cdn-icons-png.flaticon.com/256/1828/1828884.png";
 
 export default function feedbackdata() {
   const [dbFeedback, setdbFeedback] = useState([]);

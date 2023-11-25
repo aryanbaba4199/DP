@@ -42,24 +42,32 @@ const AdminPanel = () => {
     <>
       <Header />
       <div className="homeblank"></div>
-      <div className="container mx-auto mt-5">
+      <div className="container flex p-2 mx-auto mt-5">
         {bookingData ? (
-          <div>
-            <h1 className="text-3xl font-bold mb-4">Booking Data</h1>
+          <div className="w-full">
+            <h1 className=" text-white text-3xl font-bold mb-4">Booking Data</h1>
             {bookingData.reverse().map((booking) => (
-              <div key={booking._id} className="bg-gray-100 p-4 mb-4 rounded-md">
-                <p className="text-xl font-bold mb-2">{booking.name}</p>
-                <p className="text-gray-600 mb-2">{booking.email}</p>
-                <p className="text-gray-600 mb-2">{booking.mobile}</p>
+              <div key={booking._id} className="bg-gray-100 p-2 mb-4 rounded-md">
+                <p className="text-xl font-bold mb-2">Client Name : {booking.name}</p>
+                <p className="text-gray-600 mb-2">Email : {booking.email}</p>
+                <p className="text-gray-600 mb-2">Mobile : {booking.mobile}</p>
                 <p className="text-gray-600 mb-2">Address: {booking.address}</p>
                 <p className="text-gray-600 mb-2">Function Type: {booking.selectedFunctionType}</p>
+                <p className="text-gray-600 mb-2">Message : {booking.msg}</p>
+                <p>Selected Services are : </p>
+                {booking.selectedServices.map((service) =>(
+                  <ul>
+                    <li text-gray-600 mb-2>{service}</li>
+                  </ul>
+                ))}
                 <p className="text-gray-600 mb-2">Time: {booking.time}</p>
                 <p className="text-gray-600 mb-2">Status: {booking.status}</p>
                 <p className="text-gray-600 mb-2">Payment: {booking.payment}</p>
+
                 {/* Add more details as needed */}
                 <button
                   onClick={() => handleDelete(booking._id)}
-                  className="mt-2 bg-red-500 text-white px-4 py-2 rounded-md"
+                  className="mt-2 bg-red-500 text-white px-4 py-2 rounded-md "
                 >
                   Delete
                 </button>

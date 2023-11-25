@@ -4,10 +4,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const blankStar =
-  "https://cdn-icons-png.flaticon.com/256/12626/12626474.png";
+const blankStar = "https://cdn-icons-png.flaticon.com/256/16/16666.png";
 const filledStar =
-  "https://free.clipartof.com/490-Free-Clipart-Of-A-Geometric-Star-Colorful.png";
+  "https://cdn-icons-png.flaticon.com/256/1828/1828884.png";
 
 function FeedbackForm() {
   const { data: session } = useSession();
@@ -51,13 +50,17 @@ function FeedbackForm() {
       <div className="card4 p-4 md:p-8 shadow-md flex flex-col md:flex-row justify-between">
         <div className="star-container flex items-center">
           {Array.from({ length: 5 }, (_, index) => (
+            <>
+            
             <img
               key={index}
-              className="delete-logo cursor-pointer"
+              className="delete-logo cursor-pointer rounded-full "
               src={index < rating ? filledStar : blankStar}
               alt={`Star ${index + 1}`}
               onClick={() => handleStarClick(index + 1)}
             />
+            
+            </>
           ))}
         </div>
         <div className="input-container mt-4 md:mt-0 md:ml-4 flex-1">
