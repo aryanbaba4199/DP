@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import PostForm from "../Admin/postform";
-
 import axios from "axios";
 import Header from "../Home/header";
 import { useSession } from "next-auth/react";
@@ -13,6 +12,7 @@ function Posts() {
   if (session) {
     useremail = session.user.email;
   }
+
   const fetchPosts = async () => {
     try {
       const response = await axios.get("/api/postHandler");
@@ -27,7 +27,6 @@ function Posts() {
     }
   };
 
-  //______________Deleteing Post ____________
   const deletePost = async (dID) => {
     try {
       const response = await axios.delete(`/api/postHandler?did=${dID}`);
@@ -54,7 +53,6 @@ function Posts() {
 
       if (response.status === 200) {
         console.log("Post created successfully");
-
         fetchPosts();
       } else {
         console.log("Post creation failed");
@@ -63,6 +61,7 @@ function Posts() {
       console.log("Error Caught:", err);
     }
   };
+
   const allowedEmails = [
     "aryanbaba4199@gmail.com",
     "dreamplanner4199@gmail.com",
@@ -73,33 +72,36 @@ function Posts() {
     <>
       <Header />
       <div className="homeblank"></div>
-      <div className="wholecontainer">
-        <div className="create-container">
+      <div className=" p-4">
+        <div className="bg-slate-800 text-white p-2 rounded-xl">
           {session && allowedEmails.includes(useremail) && (
             <>
-              <h1>Create a Post</h1>
-              <PostForm onSubmit={handleSubmit} />
+              <h1 className="text-2xl font-bold mb-4 p-4">Create a Post</h1>
+              <PostForm onSubmit={handleSubmit}/>
             </>
           )}
         </div>
-        <div className="glimpse-container">
-          <h1 className="dream">Glimpse</h1>
-          
-            
-            {posts.map((post) => (
-              <div key={post._id} className="myCard">
-                <img src={post.image} alt="Post" className="glimpse-pic" />
-                <p className="heading">
-                  {post.header}
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/256/6861/6861362.png"
-                    className="delete-logo"
-                    onClick={() => deletePost(post._id)}
-                  />
-                </p>
-              </div>
-            ))}
-          
+        <div className="flex flex-wrap">
+          <h1 className="dream text-2xl font-bold mb-4 w-full p-2 my-5">Glimpse</h1>
+          {posts.map((post) => (
+            <div key={post._id} className=" w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+              
+              <img
+                src={post.image}
+                alt="Post"
+                className="glimpse-pic w-48 h-48 object-cover mb-2 rounded"
+              />
+              <p className="heading flex justify-between items-center">
+                <span className="text-green-100">{post.header}</span>
+                <img
+                  src="https://cdn-icons-png.flaticon.com/256/6861/6861362.png"
+                  alt="Delete"
+                  className=" cursor-pointer w-1/12"
+                  onClick={() => deletePost(post._id)}
+                />
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </>
