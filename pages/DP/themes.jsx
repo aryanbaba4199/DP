@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import PostForm from "../Admin/postform";
 import axios from "axios";
 import Header from "../Home/header";
-import { useSession } from "next-auth/react";
+
 import {auth} from "../../utils/firebaseAuth";
 function Posts() {
-  const { data: session } = useSession();
+
   const [posts, setPosts] = useState([]);
 
   let useremail = "";
-  if (session) {
-    useremail = session.user.email;
+  if (auth.currentUser) {
+    useremail = auth.currentUser.email;
   }
 
   const fetchPosts = async () => {
