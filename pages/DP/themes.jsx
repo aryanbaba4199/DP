@@ -8,10 +8,7 @@ function Posts() {
 
   const [posts, setPosts] = useState([]);
 
-  let useremail = "";
-  if (auth.currentUser) {
-    useremail = auth.currentUser.email;
-  }
+  
 
   const fetchPosts = async () => {
     try {
@@ -62,11 +59,7 @@ function Posts() {
     }
   };
 
-  const allowedEmails = [
-    "aryanbaba4199@gmail.com",
-    "dreamplanner4199@gmail.com",
-    "an.rajdubey@gmail.com",
-  ];
+ 
 
   return (
     <>
