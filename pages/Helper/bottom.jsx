@@ -1,77 +1,43 @@
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import Facebook from "../../Components/social/facebook"
+import Instagram from "../../Components/social/instagram"
+import LinkedIn from "../../Components/social/linkedin"
 
 export default function Bottom() {
   return (
-    <div className="flex flex-col md:flex-row gap-4 md:gap-72 p-5 bg-slate-800 rounded-lg w-full justify-center">
-      <div className="contact text-white">
-        <div className="location">
+    <>
+    <div className="flex flex-col md:flex-row gap-4 items-center md:items-start justify-center md:gap-72 p-5 bg-slate-800 w-full h-fit">
+      <div className=" text-white flex justify-center items-center md:items-start md:justify-start flex-col">
+        <div className="flex justify-center items-center md:items-start md:justify-start">
           <img
-            className="imgt"
+            className="mr-2 mb-1"
             src="https://cdn-icons-png.flaticon.com/256/535/535137.png"
             alt="Location"
             width="20"
             height="30"
           />
-          <h3 className="topicstyle">Address</h3>
+          <h3 className="font-semibold text-xl font-serif">Address</h3>
         </div>
         <div className="grid p-5 text-white">
-          <text className="pgalbumtext">Patna, Bihar</text>
+          <text className="pgalbumtext">Kankarbagh, Patna, Bihar</text>
           <text className="pgalbumtext">Contact: +917005742790</text>
           <text className="pgalbumtext">Email: dreamplanner4199@gmail.com</text>
         </div>
       </div>
 
-      <div className="follow text-white">
-        <h2>Follow us</h2>
-        <div className="social ">
-          <Link href="https://www.instagram.com/dreamplanner___/">
-            <div className="in">
-              <text className="in">Instagram</text>
-
-              <img
-                src="https://cdn-icons-png.flaticon.com/256/2111/2111463.png"
-                className="imgt"
-                alt="Instagram"
-              />
-            </div>
-          </Link>
-          <Link href="https://wa.me/+917005742790">
-            <div className="wt">
-              <text className="wt">Whatsapp</text>
-              <img
-                src="https://cdn-icons-png.flaticon.com/256/3992/3992601.png"
-                className="imgt"
-                alt="Whatsapp"
-              />
-            </div>
-          </Link>
-          <Link href="https://www.youtube.com/channel/UCm-5IAa0v0Ozd5oQnO9NP5g">
-            <div className="yt">
-              <text className="yt">Youtube</text>
-              <img
-                src="https://cdn-icons-png.flaticon.com/256/174/174883.png"
-                className="imgt"
-                alt="Youtube"
-              />
-            </div>
-          </Link>
-          <Link href="https://www.facebook.com/AryanbabaRN">
-            <div className="fb">
-              <text className="">Facebook</text>
-              <img
-                src="https://cdn-icons-png.flaticon.com/256/2504/2504903.png"
-                className="imgt"
-                alt="Facebook"
-              />
-            </div>
-          </Link>
+      <div className=" text-white font-serif text-xl flex justify-center items-center md:items-start md:justify-start flex-col">
+        <h2 className="font-semibold">Follow us</h2>
+        <div className="flex gap-6 mt-4">
+          <Facebook/>
+          <Instagram/>
+          <LinkedIn/>
         </div>
       </div>
 
-      <div className="partner text-white">
-        <h2>Our Other Services</h2>
+      <div className="partner text-white flex justify-center items-center md:items-start md:justify-start flex-col">
+        <h2 className="font-semibold text-xl ">Our Other Services</h2>
         <div className="cp p-5">
           <Link href="https://stylers.in/">
             <Image
@@ -88,6 +54,10 @@ export default function Bottom() {
           </Link>
         </div>
       </div>
+      
     </div>
-  )
+    
+    <p className="text-center px-12 text-gray-500 font-semibold bg-slate-800">Copyright 2024, Dream Planner | All Right Reserved</p>
+    </>
+    );
 }

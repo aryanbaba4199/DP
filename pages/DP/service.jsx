@@ -4,21 +4,19 @@ import Bottom from "../Helper/bottom";
 
 const Serviceprovider = ({ imageSrc, serviceName}) => (
     <div>
-        <div class="myCard">
-          <div class="innerCard">
-            <div class="frontSide">
+        <div class="flex">
+          <div class="">
+            <div class="flex flex-col items-center justify-center">
               <img
-                className="service-img"
+                className="w-64 h-64 rounded-full"
                 src={imageSrc}
+                
               />
-              <p>{serviceName}</p>
+              <p className="mt-2 font-semibold text-blue-950 text-lg bg-gradient-to-r 
+              from-blue-500 via-red-500 to-purple-500 bg-cover bg-clip-text text-transparent font-serif">{serviceName}</p>
               
             </div>
-            <div class="backSide">
-              <p class="title">{serviceName}</p>
-              <p className="btn-support">Book Now</p>
-              
-            </div>
+            
           </div>
         </div>
       </div>
@@ -102,7 +100,7 @@ export default function service() {
     <>
       <Header />
       <div className="homeblank"></div>
-      <div className="services-div">
+      <div className="flex flex-wrap gap-8 justify-between p-4">
         {srcontainer.map((service, index) => (
           <Serviceprovider
             key={index}

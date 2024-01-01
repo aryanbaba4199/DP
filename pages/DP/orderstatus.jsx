@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Header from "../Home/header";
-import { useSession } from "next-auth/react";
+import {auth} from "../../utils/firebaseAuth"
 import { TiStarburst } from "react-icons/ti";
 
 
 function OrderDetails() {
-  const { data: session } = useSession();
+  
   const router = useRouter();
 
   const [userData, setUserData] = useState([]);
@@ -15,9 +15,9 @@ function OrderDetails() {
 
   let name = "";
   let useremail = "";
-  if (session) {
-    name = session.user.name;
-    useremail = session.user.email;
+  if (auth.currentUser) {
+    name = auth.currentUser.displayName;
+    useremail = auth.currentUser.email;
   }
 
   const expBtn = (id) =>{
@@ -25,7 +25,7 @@ function OrderDetails() {
   }
 
   useEffect(() => {
-    if (session) {
+    if (auth.currentUser) {
       const fetchUserData = async () => {
         try {
           let msg = "userbookingdata";
@@ -47,7 +47,7 @@ function OrderDetails() {
 
       fetchUserData();
     }
-  }, [session, name]);
+  }, [auth.currentUser, name]);
 
   const deletebkdata = async (dID) => {
     try {
@@ -63,14 +63,17 @@ function OrderDetails() {
     }
   };
 
-  if (!session) {
+  if (!auth.currentUser) {
     return (
+      <>
+      <Header/>
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">You are not logged in.</h2>
           <p>Please log in to view your order details.</p>
         </div>
       </div>
+      </>
     );
   }
 

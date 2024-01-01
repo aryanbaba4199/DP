@@ -4,11 +4,12 @@ import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { useSession, signIn, signOut } from "next-auth/react";
+
 import Bottom from "../Helper/bottom";
+import { auth } from "../../utils/firebaseAuth";
 
 const WeddingBooking = () => {
-  const { data: session } = useSession();
+  console.log(auth);
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -22,10 +23,10 @@ const WeddingBooking = () => {
 
   //-------setting name ----------------
   useEffect(() => {
-    if (session) {
-      setName(session.user.name);
+    if (auth) {
+      setName(auth?.currentUser?.displayName);
     }
-  }, [session]);
+  }, [auth]);
 
   const functionType = [
     {
@@ -146,7 +147,7 @@ const WeddingBooking = () => {
 
   //_________________Handling Booking Information _____________
   const handleBook = async () => {
-    if (session) {
+    if (auth.updateCurrentUser) {
       toast("Booking In process...");
 
       setBookingConfirmed(true);
@@ -154,8 +155,8 @@ const WeddingBooking = () => {
       let email = "";
       let status = "Processing...";
       let payment = "No Transaction Found";
-      if (session) {
-        email = session.user.email;
+      if (auth.currentUser) {
+        email = auth.currentUser.email;
       }
 
       const bookingData = {
@@ -210,127 +211,151 @@ const WeddingBooking = () => {
   return (
     <>
       <Header />
-      <div className="homeblank"></div>
-      <div className="wholecontainer">
-        <div className="userdetail">
-          <h2 className="title">Fill Details</h2>
+      <div className="mt-8"></div>
+      <div className="container">
+        <div className=" flex justify-center items-center font-serif text-4xl font-semibold">
+          <h2 className="bg-gradient-to-r from-slate-950 to-red-700 text-transparent bg-clip-text ">
+            Fill Details
+          </h2>
         </div>
-        <div className="">
-          <div className="input-div">
-            <div className="input-container">
+        <div className="container">
+          <div className="flex flex-col md:flex-row justify-evenly items-center shadow-lg shadow-black py-12">
+            <div className="grid">
+              <label for="" className="p-2 font-semibold text-lg">
+                Enter Your Name
+              </label>
               <input
                 placeholder="Enter Your Name"
-                className="input-field"
+                className="p-1 border-2 border-black px-2"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></input>
-              <label for="input-field" className=" input-label">
-                Enter Your Name
-              </label>
 
               <span className="input-highlight"></span>
             </div>
 
-            <div className="input-container">
+            <div className="grid">
+              <label
+                for="p-1 border-2 border-black px-2"
+                className="p-2 font-semibold text-lg"
+              >
+                Location
+              </label>
               <input
                 placeholder="Location"
                 onClick={handleInputClick}
-                className="input-field"
+                className="p-1 border-2 border-black px-2"
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               ></input>
-              <label for="input-field" className="input-label">
-                Location
-              </label>
 
               <span className="input-highlight"></span>
             </div>
 
-            <div className="input-container">
+            <div className="grid">
+              <label
+                for="p-1 border-2 border-black px-2"
+                className="p-2 font-semibold text-lg"
+              >
+                Mobile No.
+              </label>
               <input
                 placeholder="Mobile No."
-                className="input-field"
+                className="p-1 border-2 border-black px-2"
                 type="text"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
               ></input>
-              <label for="input-field" className="input-label">
-                Mobile No.
-              </label>
 
               <span className="input-highlight"></span>
             </div>
           </div>
         </div>
 
-        <div className="bookingcontainer">
-          <h3 className="title">Select Your Function</h3>
-          <div className="services-div">
+        <div className="container shadow-lg shadow-black m-8 p-8 w-[90%] flex flex-col justify-center items-center">
+          <h3 className="bg-gradient-to-r from-slate-950 to-red-700 text-transparent bg-clip-text text-3xl font-semibold font-serif">
+            Select Your Function
+          </h3>
+          <div className="flex flex-wrap justify-between gap-8 text-xl mt-4 items-center ">
             {functionType.map((fn, index) => (
-              <div className="radio-input" key={index}>
-                <label className="checktext">
+              <div className="p-2" key={index}>
+                <label className="bg-gradient-to-r from-slate-950 to-red-700 text-transparent bg-clip-text text-lg font-semibold font-serif">
                   <input
                     type="radio"
-                    className="input"
+                    className="mr-2 w-5 h-5"
                     value={fn.fntype}
                     onChange={handleFunctionTypeChange}
                     checked={selectedFunctionType === fn.fntype}
                   />
                   {fn.fntype}
-                  <span className="span"></span>
                 </label>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bookingcontainer">
-          <h3 className="title">Mark Your Need</h3>
-          <div className="bookservices">
+        <div className="container shadow-lg shadow-black">
+          <div className="flex justify-center items-center pt-8 ">
+            <h3 className="bg-gradient-to-r from-slate-950 to-red-700 text-transparent bg-clip-text text-3xl font-semibold font-serif">
+              Mark Your Need
+            </h3>
+          </div>
+          <div className="flex flex-wrap justify-between mx-8 items-center ">
             {availableServices.map((service, index) => (
-              <div className="servic" key={index}>
-                <label className="container">
+              <div
+                className=" ml-8 mt-4 flex justify-center items-center  p-2"
+                key={index}
+              >
+                <label className="flex flex-wrap justify-center items-center text-xl ml-4">
                   <input
                     type="checkbox"
-                    className="checktext"
+                    className="w-4 h-4"
                     value={service.serviceName}
                     onChange={handleServiceChange}
                     checked={services.includes(service.serviceName)}
                   />
-                  <div className="checkmark"></div>
-                  <text className="checktext">{service.serviceName}</text>
+                  <span className="ml-2">{service.serviceName}</span>
                 </label>
               </div>
             ))}
           </div>
         </div>
-        <div className="homeblank"></div>
 
-        <div className="input-container">
+        <div className="grid">
           <input
             placeholder="Explain your Function and Budget"
             type="text"
             value={msg}
-            className="input-field"
+            className="p-1 border-2 border-black px-2"
             onChange={(e) => setmsg(e.target.value)}
           />
-          <label for="input-field" className="input-label">
+          <label
+            for="p-1 border-2 border-black px-2"
+            className="p-2 font-semibold text-lg"
+          >
             Explain your Function and Budget
           </label>
 
           <span className="input-highlight"></span>
         </div>
 
-        <div className="bookbtn">
-          <h2 onClick={handleBook} className="bio btn-support">
+        <div className="flex justify-center items-center font-semibold font-serif text-xl">
+          <h2
+            onClick={handleBook}
+            className="bg-black p-1 px-4 rounded-md btn text-white"
+          >
             Book
           </h2>
         </div>
-        <div className="line"></div>
-        <div className="">
-          <div>
+        <div className="flex justify-center items-center mt-8 text-2xl font-semibold">
+          <h2 className="bg-gradient-to-r from-slate-950 to-red-700 text-transparent bg-clip-text font-semibold font-serif">
+            Some Important Terms and Condition
+          </h2>
+        </div>
+        <div className="flex flex-col md:flex-row justify-evenly gap-8 m-4 px-8 py-8 items-center">
+          <div className="">
             <div className="myCard">
               <div className="innerCard">
                 <div className="frontSide">

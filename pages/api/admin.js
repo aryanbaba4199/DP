@@ -5,6 +5,7 @@ export default async function handler(req, res) {
   db();
 
   if (req.method === "GET") {
+    console.log("Called GET");
     try {
       const bkData = await Booking.find();
       res.status(200).json(bkData);

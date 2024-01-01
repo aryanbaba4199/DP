@@ -45,16 +45,18 @@ function FeedbackForm() {
   };
 
   return (
-    <div className="bg-slate-700 text-white p-4 md:p-8 max-w-screen-md mx-auto rounded-3xl">
-      <p className="text-xl text-white md:text-2xl font-bold mb-8">Please rate your experience</p>
+    
+    <div className=" mt-8 shadow-lg w-[90%] ml-5 md:ml-16  shadow-blue-500 text-white p-4 md:p-8  justify-center items-start md:items-center  rounded-3xl">
+      <p className="text-xl md:text-2xl font-bold mb-4
+      md:translate-x-12 translate-x-0 mt-8 bg-gradient-to-r bg-clip-text text-transparent from-slate-950 via-purple-600">Please rate your experience</p>
       <div className="card4 p-4 md:p-8 shadow-md flex flex-col md:flex-row justify-between">
-        <div className="star-container flex items-center">
+        <div className=" flex gap-2 items-center">
           {Array.from({ length: 5 }, (_, index) => (
             <>
             
             <img
               key={index}
-              className="delete-logo cursor-pointer rounded-full "
+              className=" w-8 cursor-pointer rounded-full "
               src={index < rating ? filledStar : blankStar}
               alt={`Star ${index + 1}`}
               onClick={() => handleStarClick(index + 1)}

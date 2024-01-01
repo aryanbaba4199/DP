@@ -2,43 +2,37 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { auth } from "../../utils/firebaseAuth";
 import { ToastContainer, toast } from "react-toastify";
+import Mobile from "../../Components/Header/button"
 
-// Social Netwoek handling
+// Social Network handling
 
 function Tabmenu() {
-  const [toggle, settoggle] = useState("light");
+  
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [image, setimage] = useState("");
-  const { data: session } = useSession();
+  
 
   useEffect(() => {
-    if (session?.user) {
-      const { name, email, image } = session.user;
-      setname(name);
+    if (auth.currentUser) {
+      console.log(auth.currentUser);
+      const { displayName, email, photoURL } = auth.currentUser;
+      setname(displayName);
       setemail(email);
-      setimage(image);
+      setimage(photoURL);
     }
-  }, [session]);
+  }, []);
 
-  const tooggleTheme = () => {
-    if (toggle === "light") {
-      settoggle("dark");
-    } else {
-      settoggle("light");
-    }
-  };
-  useEffect(() => {
-    document.body.className = toggle;
-  }, [toggle]);
+ 
 
+ 
   // --------User detail saving Redirecting to booking-----------
   const bookingbtn = async () => {
     let user = [];
-    if (session) {
-      user = session.user;
+    if (auth) {
+      user = auth.user;
 
       let messagecode = "userprofile";
       try {
@@ -65,15 +59,24 @@ function Tabmenu() {
         }
       }
     } else {
-      toast("Log in Reccomended!");
+      toast("Log in Recommended!");
       window.location.href = "/DP/booking";
     }
   };
 
-  //-------Admin Functionality -------
+  // ------------Handling Sign Out --------------------
+  const signOutHandler = async () => {
+    try{
+      await auth.signOut();
+      window.location.href = "/";
+    }catch(err){
+      console.log("Error:", err);
+    }
+  }
+  // -------Admin Functionality -------
   let useremail = "";
-  if (session) {
-    useremail = session.user.email;
+  if (auth.currentUser) {
+    useremail = auth.currentUser.email;
   }
   const allowedEmails = [
     "aryanbaba4199@gmail.com",
@@ -83,107 +86,101 @@ function Tabmenu() {
 
   return (
     <>
-      <div className="wholeheader">
-        <div className="tab">
-          <div className="logo-holder">
+    <div className="md:hidden">
+    <Mobile/>
+    </div>
+      <div className=" bg-gradient-to-r from-white via-purple-600 to-red-600 md:flex hidden text-white p-4 w-full h-24 ">
+        <div className="flex items-center w-[70%] md:w-[30%]">
+          <div className="flex">
             <Link href="/">
-              <img src="/dp.png" alt="Logo" className="imglogo" href="/home" />
+              <img
+                src="/dp.png"
+                alt="Logo"
+                className="w-12 rounded-full"
+                href="/home"
+              />
             </Link>
-            <div className="sitenamecontainer">
-              <div className="snc">
-                <text className="sitename" href="/Home/hero">
+            <div className=" font-serif">
+              <div className="ml-5 font-bold flex gap-2 text-2xl md:text-4xl mb-2 bg-gradient-to-r from-slate-950 via-purple-700 to-red-700 bg-clip-text text-transparent">
+                <Link className="" href="/">
                   Dream
-                </text>
-                <text className="sitename1" href="/Home/hero">
+                </Link>
+                <Link className="sitename1 cursor-pointer" href="/">
                   Planner
-                </text>
+                </Link>
               </div>
-              <div className="slogan">
-                <text className="slogan">Your Event, Our Responsibility</text>
-              </div>
-            </div>
-            <div className="auth-mobile">
               <div className="">
-                {session ? (
-                  <>
-                    <img src={image} className="imglogo" />
-                  </>
-                ) : (
-                  <>
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/256/2602/2602046.png"
-                      className="imglogo"
-                    />
-                  </>
-                )}
+                <span className="bg-gradient-to-r text-lg font-serif from-purple-800 to-red-700 bg-clip-text text-transparent ">Your Event, Our Responsibility</span>
               </div>
             </div>
-
-            {/* for mobile devices */}
+            
           </div>
         </div>
-        <div className="part2">
-          <Link href="/" className="bio btn-support">
-             Home
+        <div className="part2 flex items-center w-[60%] gap-4">
+          <Link href="/" className="p-1 bg-red-600 rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
+            Home
           </Link>
-          <Link href="/DP/service" className="bio btn-support">
-             Services
+          <Link href="/DP/service" className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
+            Services
           </Link>
 
-          <text onClick={bookingbtn} className="bio btn-support">
-            {" "}
-            Booking{" "}
-          </text>
+          <span onClick={bookingbtn} className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
+            Booking
+          </span>
 
-          <Link href="/DP/orderstatus" className="bio btn-support">
-             Cart 
+          <Link
+            href="/DP/orderstatus"
+            className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold"
+          >
+            Cart
           </Link>
-          <Link href="/DP/themes" className="bio btn-support">
+          <Link href="/DP/themes" className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
             Gallery
           </Link>
-          <Link href="/DP/teams" className="bio btn-support">
-            Team
-          </Link>
-          <Link href="/DP/career" className="bio btn-support">
-            Career
-          </Link>
-          <Link href="/DP/about" className="bio btn-support">
+          
+          
+          <Link href="/DP/about" className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
             About
           </Link>
-          <text className="bio btn-support" onClick={() => tooggleTheme()}>
-            Dark
-          </text>
-          {session ? (
-            <text className="bio btn-support" onClick={() => signOut()}>
+          
+          {auth.currentUser ? (
+            <span
+              className="p-1 bg-black rounded-lg w-24 hidden md:flex justify-center  btn font-semibold"
+              onClick={signOutHandler}
+            >
               Log out
-            </text>
+            </span>
           ) : (
-            <text className="bio btn-support" onClick={() => signIn()}>
+            <span
+              className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold"
+              
+            >
+              <Link href="/Authentication/login">
               Login
-            </text>
+              </Link>
+            </span>
           )}
-        {
-          session && allowedEmails.includes(useremail)&& (
-            <Link href="/Admin/main" className="bio btn-support">
-            Admin
+          {auth && allowedEmails.includes(email) && (
+            <Link href="/Admin/main" className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
+              Admin
             </Link>
-          )
-        } 
+          )}
         </div>
-        <div className="user-container">
-          <div className="auth1">
-            {session ? (
+        <div className="user-container w-[10%] flex items-center justify-end p-2">
+          <div className="auth1 w-full flex flex-col justify-center items-center">
+            {auth.currentUser ? (
               <>
-                <img src={image} className="imglogo" />
-                <text className="title2">{name}</text>
+                <img src={image} alt={name} className="w-12 rounded-full" />
+                <span className="font-semibold">{name}</span>
               </>
             ) : (
               <>
                 <img
                   src="https://cdn-icons-png.flaticon.com/256/2602/2602046.png"
-                  className="imglogo"
+                  alt="Guest"
+                  className="w-12"
                 />
-                <text className="slogan">Guest</text>
+                <span className="text-black font-serif">Guest</span>
               </>
             )}
           </div>

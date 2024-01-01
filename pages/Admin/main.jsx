@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Home/header";
-import { useSession } from "next-auth/react";
+import {auth} from "../../utils/firebaseAuth";
 import { useRouter } from "next/router";
 import axios from "axios";
 
@@ -8,7 +8,7 @@ const AdminPanel = () => {
   const [expenditureInputs, setExpenditureInputs] = useState({});
   const [showAddRecord, setShowAddRecord] = useState(false);
   const router = useRouter();
-  const { data: session } = useSession();
+  
   const [bookingData, setBookingData] = useState(null);
   const [editedBooking, setEditedBooking] = useState({
     name: "",
@@ -18,23 +18,22 @@ const AdminPanel = () => {
   const [newExpenseAmount, setNewExpenseAmount] = useState("");
 
   const fetchData = async () => {
-    if (session && session.user.email === "aryanbaba4199@gmail.com") {
+    if (auth.currentUser.email === "aryanbaba4199@gmail.com") {
       try {
         const bkDatares = await axios.get("/api/admin");
+        
         if (bkDatares.status === 200) {
           setBookingData(bkDatares.data);
         }
       } catch (error) {
         console.error("Error fetching booking data:", error.message);
       }
-    } else {
-      router.push("/");
-    }
+    } 
   };
 
   useEffect(() => {
     fetchData();
-  }, [session, router]);
+  }, [auth.currentUser, router]);
 
   const handleDelete = async (id) => {
     try {

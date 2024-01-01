@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import Image from "next/image";
+
+import { CSSProperties } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const images = [
   {

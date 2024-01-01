@@ -12,11 +12,13 @@ export default async function handler(req, res){
     {/*_________________Creating Bookings ______________ */}
     if(req.method === "POST" && messagecode === "createbooking"){
        const bookingData = req.body.bookingData;
+       console.log(bookingData);
        
        
        
        try{
         const booking = new bkSchema(bookingData);
+        
         
         await booking.save();
 
@@ -37,9 +39,7 @@ export default async function handler(req, res){
             name = ${bookingData.name}
             email = ${bookingData.email}
             address = ${bookingData.address}
-            mobile = ${bookingData.mobile}
-            id = ${booking._id}
-            link = ${`htpps://dreamplanner.in/api/accounting?id=${booking._id}`}
+            mobile = ${bookingData.mobile}}
             `
             
         };

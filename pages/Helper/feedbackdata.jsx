@@ -35,7 +35,7 @@ export default function feedbackdata() {
           (prevIndex) => (prevIndex - 1 + dbFeedback.length) % dbFeedback.length
         );
       }
-    }, 2000);
+    }, 3000);
 
     return () => {
       clearInterval(interval);
@@ -61,28 +61,29 @@ export default function feedbackdata() {
   };
 
   return (
-    <div className="feedback-card">
-      <div className="card4">
+    <div className="flex justify-center items-center w-[95%] ml-2">
+      
         <div className="bg2">
           {dbFeedback.length > 0 && (
-            <div className="feedback-container">
+            <div className=" shadow-lg shadow-black p-2 px-2 md:px-48 py-16 rounded-3xl mt-8">
+              <h2 className="text-3xl md:text-4xl font-semibold bg-gradient-to-r from-black to-red-600 bg-clip-text text-transparent font-serif">What our client says</h2>
               <span className="">
-                <h3 className="title">{dbFeedback[fdbkindex].name}</h3>
+                <h3 className="font-semibold bg-gradient-to-r text-center from-black to-red-600 bg-clip-text text-transparent text-2xl mt-8 font-serif">{dbFeedback[fdbkindex].name}</h3>
               </span>
 
-              <p className="fstext">
+              <p className="mt-2 text-lg text-blue-800 text-center">
                 {dbFeedback[fdbkindex].feedback !== ""
                   ? dbFeedback[fdbkindex].feedback
                   : "Awesome services"}
               </p>
-              <div className="star-container">
+              <div className="flex mt-4 w-8 gap-4 ">
                 {renderStars(dbFeedback[fdbkindex].rating)}
               </div>
             </div>
           )}
         </div>
         <div className="blob"></div>
-      </div>
+      
     </div>
   );
 }
