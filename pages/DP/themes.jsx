@@ -67,7 +67,7 @@ function Posts() {
       <div className="homeblank"></div>
       <div className=" p-4">
         <div className="shadow-lg shadow-black text-white p-2 rounded-xl">
-          {auth.currentUser.email==="aryanbaba4199@gmail.com" && (
+          {auth?.currentUser?.email==="aryanbaba4199@gmail.com" && (
             <>
               <h1 className="text-2xl font-bold mb-4 p-4 font-serif">Create a Post</h1>
               <PostForm onSubmit={handleSubmit}/>
