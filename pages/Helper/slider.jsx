@@ -65,9 +65,10 @@ function FeedbackForm() {
         <div className="input-container mt-4 md:mt-0 md:ml-4 flex-1">
           <input
             placeholder="write feedback here..."
-            className="input-field w-full p-2 border border-gray-300 rounded"
+            className="input-field w-full p-2 border border-gray-300 text-black rounded"
             type="text"
             value={feedback}
+            c
             onChange={(e) => setFeedback(e.target.value)}
           />
           <label htmlFor="input-field" className="block text-white text-sm mt-1">
