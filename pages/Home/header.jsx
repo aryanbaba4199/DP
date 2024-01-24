@@ -180,7 +180,8 @@ function Tabmenu() {
                   alt="Guest"
                   className="w-12"
                 />
-                <span className="text-black font-serif">Guest</span>
+                <Link href="/Authentication/login" className="text-black font-serif">Guest</Link>
+                
               </>
             )}
           </div>

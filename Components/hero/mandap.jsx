@@ -44,7 +44,7 @@ const mandap = () => {
             data-aos-duration="2000"
           />
         </div>
-        <Link href="/" className="px-4 rounded-lg p-1 justify-center items-center bg-black text-white font-semibold
+        <Link href="/dp/themes" className="px-4 rounded-lg p-1 justify-center items-center bg-black text-white font-semibold
         mt-4 text-xl btn  hover:shadow-lg hover:shadow-black">More</Link>
       </div>
     </div>

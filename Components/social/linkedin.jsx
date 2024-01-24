@@ -6,17 +6,21 @@ const social = () => {
       <div className="tooltip">
         <div className="profile">
           <div className="user">
-            <div className="img">Ui</div>
+            <div className="img">
+              <img
+              src="https://dreamplanner.in/dp.png"
+              />
+            </div>
             <div className="details">
-              <div className="name">User</div>
-              <div className="username">@username</div>
+              <div className="name">Aryan Dubey</div>
+              <div className="username">@aryanbaba4199</div>
             </div>
           </div>
          
         </div>
       </div>
       <div className="text">
-        <Link className="icon" href="https://freecodez.com/">
+        <Link className="icon" href="https://www.linkedin.com/in/aryanbaba4199/">
           <div className="layer">
             <span></span>
             <span></span>

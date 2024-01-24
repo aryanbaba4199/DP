@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import {auth} from  "../../utils/firebaseAuth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -9,7 +9,7 @@ const filledStar =
   "https://cdn-icons-png.flaticon.com/256/1828/1828884.png";
 
 function FeedbackForm() {
-  const { data: session } = useSession();
+
   const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState(0);
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
@@ -21,9 +21,9 @@ function FeedbackForm() {
   // Getting commenter details
   let name = "Guest";
   let email = "guest";
-  if (session) {
-    name = session.user.name;
-    email = session.user.email;
+  if (auth.currentUser) {
+    name = auth.currentUser.displayName;
+    email = auth.currentUser.email;
   }
 
   // Storing Feedback
@@ -51,19 +51,16 @@ function FeedbackForm() {
       md:translate-x-12 translate-x-0 mt-8 bg-gradient-to-r bg-clip-text text-transparent from-slate-950 via-purple-600">Please rate your experience</p>
       <div className="card4 p-4 md:p-8 shadow-md flex flex-col md:flex-row justify-between">
         <div className=" flex gap-2 items-center">
-          {Array.from({ length: 5 }, (_, index) => (
-            <>
-            
-            <img
-              key={index}
-              className=" w-8 cursor-pointer rounded-full "
-              src={index < rating ? filledStar : blankStar}
-              alt={`Star ${index + 1}`}
-              onClick={() => handleStarClick(index + 1)}
-            />
-            
-            </>
-          ))}
+        {Array.from({ length: 5 }, (_, index) => (
+  <img
+    key={index}
+    className="w-8 cursor-pointer rounded-full"
+    src={index < rating ? filledStar : blankStar}
+    alt={`Star ${index + 1}`}
+    onClick={() => handleStarClick(index + 1)}
+  />
+))}
+
         </div>
         <div className="input-container mt-4 md:mt-0 md:ml-4 flex-1">
           <input

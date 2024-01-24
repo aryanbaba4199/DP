@@ -95,10 +95,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
       <Head>
-        {states.map((state) => (
+        {states.map((state, index) => (
           <>
           <meta
-            key={state}
+            key={index}
             name="description"
             content={`Best Wedding Planner in ${state}`}
           />
@@ -122,10 +122,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           
         ))}
 
-{biharDistricts.map((dist) => (
+{biharDistricts.map((dist, index) => (
           <>
           <meta
-            key={dist}
+            key={index}
             name="description"
             content={`Best Wedding Planner in ${dist}`}
           />

@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Header from "../Home/header";
-import {auth} from "../../utils/firebaseAuth"
+import { auth } from "../../utils/firebaseAuth";
 import { TiStarburst } from "react-icons/ti";
 
-
 function OrderDetails() {
-  
   const router = useRouter();
 
   const [userData, setUserData] = useState([]);
@@ -20,9 +18,9 @@ function OrderDetails() {
     useremail = auth.currentUser.email;
   }
 
-  const expBtn = (id) =>{
+  const expBtn = (id) => {
     router.push(`/DP/accounting?id=${id}`);
-  }
+  };
 
   useEffect(() => {
     if (auth.currentUser) {
@@ -66,25 +64,29 @@ function OrderDetails() {
   if (!auth.currentUser) {
     return (
       <>
-      <Header/>
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">You are not logged in.</h2>
-          <p>Please log in to view your order details.</p>
+        <Header />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">You are not logged in.</h2>
+            <p>Please log in to view your order details.</p>
+          </div>
         </div>
-      </div>
       </>
     );
   }
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Loading...</h2>
-          <div className="animate-spin h-8 w-8  border-t-4 mx-8 rounded-full border-slate-950"></div>
+      <>
+      <Header />
+        {" "}
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">Loading...</h2>
+            <div className="animate-spin h-8 w-8  border-t-4 mx-8 rounded-full border-slate-950"></div>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
@@ -98,7 +100,6 @@ function OrderDetails() {
       </div>
     );
   }
-  
 
   return (
     <>
@@ -107,14 +108,20 @@ function OrderDetails() {
       <div className="bg-gray-100 min-h-screen">
         <div className="mx-auto p-8">
           <div className="bg-white p-8 rounded shadow">
-            <h1 className="text-3xl font-bold mb-8">{name}'s Booking Details</h1>
+            <h1 className="text-3xl font-bold mb-8">
+              {name}'s Booking Details
+            </h1>
             <div className=" flex flex-wrap gap-8 ">
               {userData.map((userItem) => (
                 <div key={userItem._id} className="border p-4 rounded shadow">
-                  <h4 className="text-xl font-bold mb-2">Name: {userItem.name}</h4>
+                  <h4 className="text-xl font-bold mb-2">
+                    Name: {userItem.name}
+                  </h4>
                   <p className="text-gray-600 mb-2">Email: {userItem.email}</p>
                   <p className="mb-2">Mobile: {userItem.mobile}</p>
-                  <p className="text-gray-600 mb-2">Address: {userItem.address}</p>
+                  <p className="text-gray-600 mb-2">
+                    Address: {userItem.address}
+                  </p>
                   <p className="text-gray-600 mb-2">
                     Function Type: {userItem.selectedFunctionType}
                   </p>
@@ -128,14 +135,19 @@ function OrderDetails() {
                   </p>
                   <p className="text-gray-600 mb-2">Message: {userItem.msg}</p>
                   <p className="text-gray-600 mb-2">Time: {userItem.time}</p>
-                  <p className="text-lime-600 mb-2 font-semibold">Status: {userItem.status}</p>
-                  <p className="text-gray-600 mb-2">Total Paid : {userItem.payment}</p>
+                  <p className="text-lime-600 mb-2 font-semibold">
+                    Status: {userItem.status}
+                  </p>
+                  <p className="text-gray-600 mb-2">
+                    Total Paid : {userItem.payment}
+                  </p>
 
-                  <span className="text-lg flex font-semibold p2"> <TiStarburst className="my-1 p-1" />Fund Details </span>
-                  
+                  <span className="text-lg flex font-semibold p2">
+                    {" "}
+                    <TiStarburst className="my-1 p-1" />
+                    Fund Details{" "}
+                  </span>
 
-                  
-                        
                   <div className="flex justify-end">
                     <img
                       src="https://cdn-icons-png.flaticon.com/256/6861/6861362.png"

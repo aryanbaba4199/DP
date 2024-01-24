@@ -167,7 +167,7 @@ const button = () => {
                   alt="Guest"
                   className="w-8"
                 />
-                <span className="text-black font-serif">Guest</span>
+                <Link href="/Authentication/login" className="text-black font-serif">Guest</Link>
               </>
             )}
           </div>

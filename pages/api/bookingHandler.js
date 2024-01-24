@@ -1,5 +1,5 @@
 import connectDB from "../../lib/mongodb"
-import bkSchema from "../../lib/Schema/bookingSchema"
+import BkSchema from "../../lib/Schema/bookingSchema"
 import Mail from "../../lib/Schema/mail"
 import nodemailer from "nodemailer";
 
@@ -7,6 +7,7 @@ import nodemailer from "nodemailer";
 connectDB();
 
 export default async function handler(req, res){
+    connectDB();
     const messagecode = req.body.messagecode;
 
     {/*_________________Creating Bookings ______________ */}
@@ -17,7 +18,7 @@ export default async function handler(req, res){
        
        
        try{
-        const booking = new bkSchema(bookingData);
+        const booking = new BkSchema(bookingData);
         
         
         await booking.save();
@@ -57,11 +58,12 @@ export default async function handler(req, res){
 
 
     {/* _________ Showing User Booking Data____________ */}
-    const email = req.query.email;
     const bookingmessagecode = req.query.messagecode;
     if(req.method === "GET" && bookingmessagecode==="userbookingdata"){
+        const email = req.query.email;
+    
         try{
-        const userbkdata = await bkSchema.find({email});
+        const userbkdata = await BkSchema.find({email});
         res.status(200).json(userbkdata);
         }catch(e){
             console.log(e);
@@ -73,12 +75,14 @@ export default async function handler(req, res){
 
 
     {/* ___________Deleting Booking Data__________ */}
-    const id = req.query.did;
+    
     
         
     if(req.method==="DELETE"){
+        const id = req.query.did;
+        console.log(id);
         try{
-             await bkSchema.findByIdAndDelete(id);
+             await BkSchema.findByIdAndDelete(id);
              res.status(200).json({message : "deleted"});   
         }
         catch(err){

@@ -1,17 +1,24 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyByzWr4QMJ8VCq2GyutIxAP6W3l9hv7HnI",
-  authDomain: "dream-planner-e849e.firebaseapp.com",
-  projectId: "dream-planner-e849e",
-  storageBucket: "dream-planner-e849e.appspot.com",
-  messagingSenderId: "756731840388",
-  appId: "1:756731840388:web:641a89fc7f5bb83bc1bfd1",
-  measurementId: "G-0D657FY07F"
+  apiKey: "AIzaSyBPyMlQ4JQKNXX8a7yDD3_VzH0wGZcfa9I",
+  authDomain: "dream-planner-6233f.firebaseapp.com",
+  projectId: "dream-planner-6233f",
+  storageBucket: "dream-planner-6233f.appspot.com",
+  messagingSenderId: "212798510800",
+  appId: "1:212798510800:web:37fc8fab028da2e351f0d5",
+  measurementId: "G-B3LKDWEXGJ"
 };
 
-const app = initializeApp(firebaseConfig);
+let app;
+
+try {
+  app = initializeApp(firebaseConfig);
+} catch (e) {
+  app = getApp();
+}
+
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 

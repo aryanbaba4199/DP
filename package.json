@@ -6,6 +6,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.16.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@heroicons/react": "^2.0.18",
@@ -25,6 +27,7 @@
     "mui": "^0.0.1",
     "next": "^14.0.3",
     "next-auth": "^4.24.5",
+    "next-cloudinary": "^5.20.0",
     "nodemailer": "^6.9.7",
     "passport": "^0.7.0",
     "postcss": "^8.4.32",

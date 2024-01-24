@@ -13,6 +13,7 @@ import Contact from "../../Components/hero/contact";
 import { useEffect } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css"
+import { MdCameraRoll } from "react-icons/md";
 
 
 const Hero = () => {
@@ -55,7 +56,7 @@ const Hero = () => {
           </p>
           <span className="mt-16 flex justify-center items-center bg-gradient-to-r from-black via-purple-800 to-red-700 bg-clip-text">
             <IoCallSharp className="mt-2 mr-3 text-2xl text-slate-900"/>
-          <p className="text-3xl font-semibold text-transparent">+91-7005742790</p>
+          <p className="text-3xl font-semibold text-transparent">+91-9525751244</p>
           </span>
         </div>
         <div className=""
@@ -78,8 +79,27 @@ const Hero = () => {
             </div>
           </div>
         </div>
+        
       </div>
-      <div className=" font-serif">
+      <div 
+      data-aos="zoom-out-down"
+      data-aos-delay="1000"
+      data-aos-duration="1000"
+      className="flex flex-col justify-center items-center font-serif text-2xl">
+        <div className="flex justify-center items-center gap-8">
+        <MdCameraRoll />
+        <h2 className="font-semibold text-3xl text-purple-900"> Live streaming </h2>
+      
+        <MdCameraRoll />
+        </div>
+        <p className="mt-8">Live wedding Streaming will show here...</p>
+        
+      </div>
+      <div>
+        
+      </div>
+      
+      <div className=" font-serif mt-16">
         <h2
           className="text-4xl font-bold flex justify-center items-center mb-8 bg-clip-text text-transparent
         bg-gradient-to-r from-slate-950 via-purple-900 to-red-600"

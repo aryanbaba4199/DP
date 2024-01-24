@@ -107,9 +107,9 @@ const contactus = () => {
             </p>
             <p className="mt-4 text-blue-700">Patna</p>
             <span className="flex gap-2">
-              <text className="mt-4 text-lg text-green-600">
+              <p className="mt-4 text-lg text-green-600">
                 Get Map Location
-              </text>
+              </p>
               <Link href="/">
                 <FaLocationArrow className="mt-5 text-2xl text-green-600" />
               </Link>

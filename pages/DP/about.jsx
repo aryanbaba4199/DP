@@ -1,11 +1,14 @@
 import React from "react";
 import Header from "../Home/header"
 import Bottom from "../Helper/bottom"
+import Team from "./teams"
 
 
 const CompanyTopic = ({ topic, topicDetail }) => (
   <div className="flex flex-col justify-center items-center p-4">
+    <div className="flex justify-center items-center shadow-xl shadow-red-600 transition-shadow p-2 px-8 m-2 rounded-lg">
     <h4 className="font-serif text-2xl bg-gradient-to-r bg-clip-text text-transparent from-slate-950 to-red-600 font-semibold">{topic}</h4>
+  </div>
     <p className="text-lg mt-2 bg-gradient-to-r from-slate-950 to-blue-600 bg-clip-text text-transparent">{topicDetail}</p>
   </div>
 );
@@ -86,6 +89,10 @@ const TopicList = () => {
             topicDetail={companyinfo.topicDetail}
           />
         ))}
+      </div>
+      <div className="flex flex-col justify-center items-center">
+        <h2 className="Text-center text-3xl font-serif my-4 pt-8 text-red-600">Meet Our Team</h2>
+        <Team/>
       </div>
     </div>
     <Bottom/>
