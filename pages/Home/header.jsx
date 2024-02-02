@@ -89,7 +89,7 @@ function Tabmenu() {
     <div className="md:hidden">
     <Mobile/>
     </div>
-      <div className=" bg-gradient-to-r from-white via-purple-600 to-red-600 md:flex hidden text-white p-4 w-full h-24 ">
+      <div className=" bg-gradient-to-r from-white to-purple-300 md:flex hidden text-white p-4 w-full h-24 ">
         <div className="flex items-center w-[70%] md:w-[30%]">
           <div className="flex">
             <Link href="/">
@@ -171,7 +171,7 @@ function Tabmenu() {
             {auth.currentUser ? (
               <>
                 <img src={image} alt={name} className="w-12 rounded-full" />
-                <span className="font-semibold">{name}</span>
+                <span className="font-semibold text-blue-950">{name}</span>
               </>
             ) : (
               <>
