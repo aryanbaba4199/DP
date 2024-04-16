@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Home/header";
 import Link from "next/link";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import { useRouter } from "next/router";
 
 import Bottom from "../Helper/bottom";
 import { auth } from "../../utils/firebaseAuth";
 
 const WeddingBooking = () => {
-  console.log(auth);
+
+  const rzrKey = process.env.RZR_TEST_KEY;
+  
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -18,7 +21,13 @@ const WeddingBooking = () => {
   const [services, setServices] = useState([]);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const [msg, setmsg] = useState("");
+  const [budget, setBudget] = useState(50000);
+  const [orderId, setOrderId] = useState('');
+  const [pid, setPid] = useState('');
+  
 
+
+  const router = useRouter();
   // ----------sign in warnings --------------------
 
   //-------setting name ----------------
@@ -107,7 +116,7 @@ const WeddingBooking = () => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
 
-        const apiKey = "97b4515e61ee4bf4bf8822d16b2cc839"; // used https://opencagedata.com/
+        const apiKey = process.env.NEXT_PUBLIC_MAP_KEY; // used https://opencagedata.com/
         const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
 
         fetch(apiUrl)
@@ -145,6 +154,63 @@ const WeddingBooking = () => {
     }
   };
 
+  const handlePayment = async () => {
+    const res = await initRazorpay();
+
+    if (!res) {
+      alert('Razorpay sdk failed')
+    }
+    const data = await axios.post('/api/createOrder', { amount: (((budget * 10) / 100) * 100) });
+    
+
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_LIVE,
+      amount: (((budget * 10) / 100) * 100),
+      currency: 'INR',
+      name: 'Dream Planner',
+      description: 'Booking Fee',
+      image: 'https://www.dreamplanner.in/dp.png',
+      order_id: orderId,
+      handler: function (response) {
+
+        setPid(response.razorpay_payment_id)
+        handleBook();
+        router.push('/DP/orderstatus');
+      },
+      prefill: {
+        name: 'Aryan Dubey',
+        email: 'aryanbaba4199@gmail.com',
+        contact: '7005742790',
+      },
+      notes: {
+        address: 'Patna, Bihar, India',
+      },
+      theme: {
+        color: '#3399cc',
+      },
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
+  const initRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
   //_________________Handling Booking Information _____________
   const handleBook = async () => {
     if (auth.updateCurrentUser) {
@@ -154,12 +220,14 @@ const WeddingBooking = () => {
       let time = new Date().toISOString().split("T")[0];
       let email = "";
       let status = "Processing...";
-      let payment = "No Transaction Found";
+      
       if (auth.currentUser) {
         email = auth.currentUser.email;
       }
+      
+      
 
-      const bookingData = {
+      const bookingData =  {
         name,
         email,
         address,
@@ -169,10 +237,9 @@ const WeddingBooking = () => {
         selectedFunctionType,
         time,
         status,
-        payment,
+        pid,
+        budget,
       };
-
-      window.location.href = "orderstatus";
 
       try {
         let messagecode = "createbooking";
@@ -189,12 +256,16 @@ const WeddingBooking = () => {
         if (response.status === 200) {
           console.log("Success");
           setBookingConfirmed(true);
+          router.push("/DP/orderStatus");
+
         } else {
           setBookingConfirmed(true);
         }
       } catch (error) {
         console.error("Error:", error);
       }
+
+
     } else {
       toast.error(
         <>
@@ -221,7 +292,7 @@ const WeddingBooking = () => {
         <div className="container">
           <div className="flex flex-col md:flex-row justify-evenly items-center shadow-lg shadow-black py-12">
             <div className="grid">
-              <label for="" className="p-2 font-semibold text-lg">
+              <label >
                 Enter Your Name
               </label>
               <input
@@ -237,7 +308,7 @@ const WeddingBooking = () => {
 
             <div className="grid">
               <label
-                for="p-1 border-2 border-black px-2"
+                
                 className="p-2 font-semibold text-lg"
               >
                 Location
@@ -256,7 +327,7 @@ const WeddingBooking = () => {
 
             <div className="grid">
               <label
-                for="p-1 border-2 border-black px-2"
+                
                 className="p-2 font-semibold text-lg"
               >
                 Mobile No.
@@ -274,11 +345,12 @@ const WeddingBooking = () => {
           </div>
         </div>
 
-        <div className="container shadow-lg shadow-black m-8 p-8 w-[90%] flex flex-col justify-center items-center">
+        <div className="container shadow-lg shadow-black m-8 p-8 w-[90%] flex flex-col justify-center items-center
+        bg-gradient-to-r from-purple-200 via-sky-100 to-blue-200 ">
           <h3 className="bg-gradient-to-r from-slate-950 to-red-700 text-transparent bg-clip-text text-3xl font-semibold font-serif">
             Select Your Function
           </h3>
-          <div className="flex flex-wrap justify-between gap-8 text-xl mt-4 items-center ">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-8 items-center ">
             {functionType.map((fn, index) => (
               <div className="p-2" key={index}>
                 <label className="bg-gradient-to-r from-slate-950 to-red-700 text-transparent bg-clip-text text-lg font-semibold font-serif">
@@ -296,19 +368,20 @@ const WeddingBooking = () => {
           </div>
         </div>
 
-        <div className="container shadow-lg shadow-black">
+        <div className="container shadow-lg shadow-black m-8 p-8 w-[90%] flex flex-col justify-center items-center
+        bg-gradient-to-r from-purple-200 via-sky-100 to-blue-200">
           <div className="flex justify-center items-center pt-8 ">
             <h3 className="bg-gradient-to-r from-slate-950 to-red-700 text-transparent bg-clip-text text-3xl font-semibold font-serif">
               Mark Your Need
             </h3>
           </div>
-          <div className="flex flex-wrap justify-between mx-8 items-center ">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-8 items-center ">
             {availableServices.map((service, index) => (
               <div
-                className=" ml-8 mt-4 flex justify-center items-center  p-2"
+                className=" mt-4   p-2"
                 key={index}
               >
-                <label className="flex flex-wrap justify-center items-center text-xl ml-4">
+                <label className=" text-xl font-serif pl-4">
                   <input
                     type="checkbox"
                     className="w-4 h-4"
@@ -322,28 +395,40 @@ const WeddingBooking = () => {
             ))}
           </div>
         </div>
-
-        <div className="grid">
+        <div className="flex justify-center items-center px-4 pt-16 pb-4 ">
+          <p className="mx-4 font-serif text-blue-800">Enter Your Budget :</p>
           <input
-            placeholder="Explain your Function and Budget"
+            className="border-2 border-purple-950 rounded-md px-2 shadow-md shadow-black"
+            required
+            type="number"
+            value={budget}
+            onChange={(e) => setBudget(e.target.value)}
+            
+          />
+        </div>
+
+        <div className="flex justify-center">
+          <label
+            
+            className="mx-4 font-serif text-blue-800"
+          >
+            Explain your Function
+          </label>
+          <input
+            placeholder="Tell me something about your function"
             type="text"
             value={msg}
-            className="p-1 border-2 border-black px-2"
+            className="border-2 border-purple-950 rounded-md px-2 shadow-md mb-4 shadow-black focus:w-96"
             onChange={(e) => setmsg(e.target.value)}
           />
-          <label
-            for="p-1 border-2 border-black px-2"
-            className="p-2 font-semibold text-lg"
-          >
-            Explain your Function and Budget
-          </label>
+
 
           <span className="input-highlight"></span>
         </div>
 
         <div className="flex justify-center items-center font-semibold font-serif text-xl">
           <h2
-            onClick={handleBook}
+            onClick={handlePayment}
             className="bg-black p-1 px-4 rounded-md btn text-white"
           >
             Book
@@ -399,7 +484,8 @@ const WeddingBooking = () => {
                   <text>We provide PAN india services</text>
                   <text>Our Planners are available in all States</text>
                   <text>Booking Status will show in cart</text>
-                  <Link href="/status/bookingstatus">
+                  {/* <Link href="/status/bookingstatus"> */}
+                  <Link href="/DP/payment">
                     <button className="bio btn-support">Cart</button>
                   </Link>
                 </div>

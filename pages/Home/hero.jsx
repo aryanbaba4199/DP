@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+
 import Feedback from "../Helper/slider";
 import FeedbackData from "../Helper/feedbackdata";
 import Bottom from "../Helper/bottom";
@@ -107,7 +107,10 @@ const Hero = () => {
           data-aos-delay="600"
           data-aos-duration="2000"
         >
+          
+     
           Our Services
+          
         </h2>
         <Service />
       </div>

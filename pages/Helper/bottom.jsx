@@ -39,7 +39,7 @@ export default function Bottom() {
         </div>
 
         <div className="partner text-white flex justify-center items-center md:items-start md:justify-start flex-col">
-          <h2 className="font-semibold text-xl ">Our Other Services</h2>
+          <h2 className="font-semibold text-lg ">Other Services</h2>
           <div className="cp p-5">
             <Link href="https://stylers.in/">
               <Image
@@ -57,15 +57,15 @@ export default function Bottom() {
           </div>
         </div>
       </div>
-      <div className="nd:flex flex-col justify-center items-center">
-        <p className="text-center px-12 text-gray-500 font-semibold bg-slate-800">
+      <div className="flex flex-col md:flex-row justify-between px-24 items-center w-full bg-slate-800 pb-2">
+        <p className="text-center px-12 text-gray-500 font-semibold ">
           Copyright 2024, Dream Planner | All Right Reserved
         </p>
         <Link
           href="https://raushan-portfolio-gules.vercel.app/"
-          className="text-center px-12  text-gray-500 font-semibold bg-slate-800"
+          className="text-blue-300"
         >
-          Developed By Floppy Technology    ............
+          Developed By Raushan Kumar   ............
         </Link>
       </div>
     </>

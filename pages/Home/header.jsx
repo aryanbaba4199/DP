@@ -132,7 +132,7 @@ function Tabmenu() {
             href="/DP/orderstatus"
             className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold"
           >
-            Cart
+            Orders
           </Link>
           <Link href="/DP/themes" className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
             Gallery

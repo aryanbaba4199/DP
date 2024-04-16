@@ -13,15 +13,16 @@ export default async function handler(req, res){
     {/*_________________Creating Bookings ______________ */}
     if(req.method === "POST" && messagecode === "createbooking"){
        const bookingData = req.body.bookingData;
+    
+       
        console.log(bookingData);
-       
-       
        
        try{
         const booking = new BkSchema(bookingData);
         
         
-        await booking.save();
+        // await booking.save();
+        console.log(bookingData);
 
 
         // ---------Sending mail to admin --------------------
@@ -41,6 +42,7 @@ export default async function handler(req, res){
             email = ${bookingData.email}
             address = ${bookingData.address}
             mobile = ${bookingData.mobile}}
+            paymentId = ${bookingData.payment}
             `
             
         };

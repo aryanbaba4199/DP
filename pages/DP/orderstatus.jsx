@@ -108,10 +108,10 @@ function OrderDetails() {
       <div className="bg-gray-100 min-h-screen">
         <div className="mx-auto p-8">
           <div className="bg-white p-8 rounded shadow">
-            <h1 className="text-3xl font-bold mb-8">
+            <h1 className="text-3xl text-center font-bold mb-8">
               {name}'s Booking Details
             </h1>
-            <div className=" flex flex-wrap gap-8 ">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
               {userData.map((userItem) => (
                 <div key={userItem._id} className="border p-4 rounded shadow">
                   <h4 className="text-xl font-bold mb-2">
@@ -139,7 +139,7 @@ function OrderDetails() {
                     Status: {userItem.status}
                   </p>
                   <p className="text-gray-600 mb-2">
-                    Total Paid : {userItem.payment}
+                     Booking Fee Paid : {(((userItem.budget * 10) / 100))}/-
                   </p>
 
                   <span className="text-lg flex font-semibold p2">
