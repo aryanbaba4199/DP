@@ -9,7 +9,7 @@ export default async (req, res) => {
     try {
       const session = await getSession({ req });
 
-      // Replace 'YOUR_KEY_ID' and 'YOUR_SECRET' with your actual Razorpay API key and secret
+      
       const instance = new Razorpay({
         key_id: rzrKey,
         key_secret: rzrSecret,
@@ -28,6 +28,7 @@ export default async (req, res) => {
           key2: 'value2',
         },
       });
+      console.log(order);
 
       res.status(200).json({ orderId: order.id });
     } catch (error) {

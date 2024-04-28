@@ -92,6 +92,12 @@ const button = () => {
               >
                 Booking
               </span>
+              <Link
+                href='/DP/shadiOnEmi'
+                className="p-1 bg-black rounded-lg flex justify-center  btn font-semibold"
+              >
+                Shadi On EMI
+              </Link>
 
               <Link
                 href="/DP/orderstatus"

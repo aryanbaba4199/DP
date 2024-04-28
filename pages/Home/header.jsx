@@ -9,11 +9,11 @@ import Mobile from "../../Components/Header/button"
 // Social Network handling
 
 function Tabmenu() {
-  
+
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [image, setimage] = useState("");
-  
+
 
   useEffect(() => {
     if (auth.currentUser) {
@@ -25,9 +25,9 @@ function Tabmenu() {
     }
   }, []);
 
- 
 
- 
+
+
   // --------User detail saving Redirecting to booking-----------
   const bookingbtn = async () => {
     let user = [];
@@ -66,10 +66,10 @@ function Tabmenu() {
 
   // ------------Handling Sign Out --------------------
   const signOutHandler = async () => {
-    try{
+    try {
       await auth.signOut();
       window.location.href = "/";
-    }catch(err){
+    } catch (err) {
       console.log("Error:", err);
     }
   }
@@ -86,9 +86,9 @@ function Tabmenu() {
 
   return (
     <>
-    <div className="md:hidden">
-    <Mobile/>
-    </div>
+      <div className="md:hidden">
+        <Mobile />
+      </div>
       <div className=" bg-gradient-to-r from-white to-purple-300 md:flex hidden text-white p-4 w-full h-24 ">
         <div className="flex items-center w-[70%] md:w-[30%]">
           <div className="flex">
@@ -113,7 +113,7 @@ function Tabmenu() {
                 <span className="bg-gradient-to-r text-lg font-serif from-purple-800 to-red-700 bg-clip-text text-transparent ">Your Event, Our Responsibility</span>
               </div>
             </div>
-            
+
           </div>
         </div>
         <div className="part2 flex items-center w-[60%] gap-4">
@@ -128,6 +128,10 @@ function Tabmenu() {
             Booking
           </span>
 
+          <Link href="/DP/shadiOnEmi" className="p-1 bg-black rounded-lg w-32 hidden md:flex justify-center  btn font-semibold">
+            Shadi On EMI
+          </Link>
+
           <Link
             href="/DP/orderstatus"
             className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold"
@@ -137,29 +141,13 @@ function Tabmenu() {
           <Link href="/DP/themes" className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
             Gallery
           </Link>
-          
-          
+
+
           <Link href="/DP/about" className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
             About
           </Link>
-          
-          {auth.currentUser ? (
-            <span
-              className="p-1 bg-black rounded-lg w-24 hidden md:flex justify-center  btn font-semibold"
-              onClick={signOutHandler}
-            >
-              Log out
-            </span>
-          ) : (
-            <span
-              className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold"
-              
-            >
-              <Link href="/Authentication/login">
-              Login
-              </Link>
-            </span>
-          )}
+
+
           {auth && allowedEmails.includes(email) && (
             <Link href="/Admin/main" className="p-1 bg-black rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">
               Admin
@@ -171,17 +159,24 @@ function Tabmenu() {
             {auth.currentUser ? (
               <>
                 <img src={image} alt={name} className="w-12 rounded-full" />
-                <span className="font-semibold text-blue-950">{name}</span>
+                
+                <span className=" font-semibold text-blue-950 hover:cursor-pointer"
+                  onMouseEnter={(e)=>setname('Logout')}
+                  onMouseLeave={()=>setname(auth.currentUser.displayName)}
+                  onClick={signOutHandler}
+                >
+                    
+                  {name}</span>
               </>
             ) : (
               <>
                 <img
                   src="https://cdn-icons-png.flaticon.com/256/2602/2602046.png"
-                  alt="Guest"
+                  alt="Log In"
                   className="w-12"
                 />
-                <Link href="/Authentication/login" className="text-black font-serif">Guest</Link>
-                
+                <Link href="/Authentication/login" className="px-1 bg-red-600 mt-1 hover:mt-0 rounded-lg  hidden md:flex justify-center  btn font-semibold">Log in</Link>
+
               </>
             )}
           </div>
