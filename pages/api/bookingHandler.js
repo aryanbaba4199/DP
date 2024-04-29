@@ -4,25 +4,54 @@ import Mail from "../../lib/Schema/mail"
 import nodemailer from "nodemailer";
 
 
-connectDB();
+
+
+
 
 export default async function handler(req, res){
     connectDB();
+    
     const messagecode = req.body.messagecode;
 
     {/*_________________Creating Bookings ______________ */}
     if(req.method === "POST" && messagecode === "createbooking"){
-       const bookingData = req.body.bookingData;
-    
+       const name = req.body.name;
+       const email = req.body.email;
+       const address = req.body.address;
+       const mobile = req.body.mobile;
+       const selectedServices = req.body.selectedServices;
+       const selectedFunctionType = req.body.selectedFunctionType;
+       const msg = req.body.msg;
+       const time = req.body.time;
+       const status = req.body.status;
+       const pid = req.body.pid;
+       const budget = req.body.budget;
+       const expenditures = req.body.expenditures;
        
-       console.log(bookingData);
+
+       
+       
        
        try{
-        const booking = new BkSchema(bookingData);
+        const booking = new BkSchema({
+            name,
+            email,
+            address,
+            mobile,
+            selectedServices,
+            selectedFunctionType,
+            msg,
+            time,
+            status,
+            pid,
+            budget,
+            expenditures
+        });
+        console.log(booking);
         
         
-        // await booking.save();
-        console.log(bookingData);
+        await booking.save();
+       
 
 
         // ---------Sending mail to admin --------------------
@@ -38,11 +67,11 @@ export default async function handler(req, res){
             to : process.env.TO_EMAIL_PASS,
             subject : "Dream Planner Booking",
             text : `
-            name = ${bookingData.name}
-            email = ${bookingData.email}
-            address = ${bookingData.address}
-            mobile = ${bookingData.mobile}}
-            paymentId = ${bookingData.payment}
+            name = ${name}
+            email = ${email}
+            address = ${address}
+            mobile = ${mobile}}
+            paymentId = ${pid}
             `
             
         };
@@ -61,11 +90,14 @@ export default async function handler(req, res){
 
     {/* _________ Showing User Booking Data____________ */}
     const bookingmessagecode = req.query.messagecode;
+    
     if(req.method === "GET" && bookingmessagecode==="userbookingdata"){
+    
         const email = req.query.email;
+        console.log(email);
     
         try{
-        const userbkdata = await BkSchema.find({email});
+            const userbkdata = await BkSchema.find({ email }).maxTimeMS(30000);
         res.status(200).json(userbkdata);
         }catch(e){
             console.log(e);

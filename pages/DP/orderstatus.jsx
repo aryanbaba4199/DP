@@ -4,12 +4,15 @@ import { useRouter } from "next/router";
 import Header from "../Home/header";
 import { auth } from "../../utils/firebaseAuth";
 import { TiStarburst } from "react-icons/ti";
+import { Dialog } from "@mui/material";
+import Link from "next/link";
 
 function OrderDetails() {
   const router = useRouter();
 
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [res, setRes] = useState('');
 
   let name = "";
   let useremail = "";
@@ -52,8 +55,9 @@ function OrderDetails() {
       const response = await axios.delete(`/api/bookingHandler?did=${dID}`);
       if (response.status === 200) {
         console.log("deleted");
-        router.reload();
+        setRes('200')
       } else {
+        setRes('400')
         console.log("error in response");
       }
     } catch (error) {
@@ -78,7 +82,7 @@ function OrderDetails() {
   if (loading) {
     return (
       <>
-      <Header />
+        <Header />
         {" "}
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
@@ -138,9 +142,9 @@ function OrderDetails() {
                   <p className="text-lime-600 mb-2 font-semibold">
                     Status: {userItem.status}
                   </p>
-                  <p className="text-gray-600 mb-2">
+                  {/* <p className="text-gray-600 mb-2">
                      Booking Fee Paid : {(((userItem.budget * 10) / 100))}/-
-                  </p>
+                  </p> */}
 
                   <span className="text-lg flex font-semibold p2">
                     {" "}
@@ -163,6 +167,25 @@ function OrderDetails() {
           </div>
         </div>
       </div>
+      <Dialog open={res === '400'}>
+        <div className='flex flex-col justify-center items-center px-4 bg-gray-700 text-white'>
+          <p className='bg-slate-900 text-white px-4 my-4 rounded-md text-xl '>Failed</p>
+          <p className=''>Order Deleting Failed</p>
+
+          <button onClick={() => setRes("")}
+            className="p-1 my-4 bg-green-600 rounded-lg w-20  md:flex justify-center  btn font-semibold"
+          >close</button>
+        </div>
+      </Dialog>
+      <Dialog open={res === '200'}>
+        <div className='flex flex-col justify-center items-center px-4 bg-gray-700 text-white'>
+          <p className='bg-red-900 text-white px-4 my-4 rounded-md text-xl '>Deleted</p>
+          <p className=''>Your Order Deleted Successfully...</p>
+          <Link href="/"
+            className="p-1 my-4 bg-green-600 rounded-lg w-20  md:flex justify-center  btn font-semibold"
+          >OK</Link>
+        </div>
+      </Dialog>
     </>
   );
 }

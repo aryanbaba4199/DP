@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function PostForm({ onSubmit }) {
+
+function PostForm({setRes}) {
+  
   const [image, setImage] = useState("");
   const [tempImageUrl, setTempImageURL] = useState("");
   const [header, setHeader] = useState("");
   const [description, setDescription] = useState("");
+  
 
   const handleImageChange = (e) => {
     const selectImage = e.target.files[0];
-    console.log(selectImage);
+
     if (selectImage) {
       const tempUrl = URL.createObjectURL(selectImage);
       setTempImageURL(tempUrl);
@@ -18,10 +21,13 @@ function PostForm({ onSubmit }) {
     }
   };
 
-  const handleSubmit = async(e) => {
+
+
+
+  const handlePostSubmit = async (e) => {
     e.preventDefault();
     
-    try{
+    try {
       const formData = new FormData();
       formData.append('file', image);
       formData.append('upload_preset', "dreamplanner4199");
@@ -29,17 +35,27 @@ function PostForm({ onSubmit }) {
         `https://api.cloudinary.com/v1_1/dvhuttonp/image/upload`, formData
       )
       
-        const imageUrl = cloudinaryResponse.data.secure_url;
-        setImage(imageUrl);
-        console.log(imageUrl);
+      const climageUrl = cloudinaryResponse.data.secure_url;
+      console.log(climageUrl);
+      setImage(climageUrl); // Optionally set image state if needed
+      const response = await axios.post("/api/postHandler", {
+        imageUrl : cloudinaryResponse.data.secure_url, header, description
+      });
 
-    }catch(e){
+      if (response.status === 200) {
+        setRes('200')
+        console.log("Post created successfully");
+        
+      } else {
+        alert("Error");
+        console.log("Post creation failed");
+      }
+    } catch (e) {
       console.error(e);
-    }
-   
-    const post = { image, header, description };
-    console.log("Upload", post)
-    onSubmit(post);
+    }                                                                                                                              
+  
+                                                                                                                                
+    setTempImageURL("")
     setImage("");
     setHeader("");
     setDescription("");
@@ -49,7 +65,7 @@ function PostForm({ onSubmit }) {
     <>
     <div className="flex">
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handlePostSubmit}
       className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md "
     >
       <div className="mb-6 flex flex-col  border border-black px-2">

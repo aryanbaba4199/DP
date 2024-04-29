@@ -1,5 +1,5 @@
 import connectDB from '../../lib/mongodb'
-import Post, { findByIdAndDelete } from '../../lib/Schema/postSchema'
+import Post from '../../lib/Schema/postSchema'
 
 connectDB();
 
@@ -7,15 +7,23 @@ export default async function handler(req, res){
     
     //__________Creating Post ________
     if(req.method === 'POST'){
-        const postData = req.body.post;
+        const imageUrl = req.body.imageUrl;
+        
+        const header = req.body.header;
+        const description = req.body.description;
+
+        console.log(header, description, imageUrl);
+        
         try{
-            const newPost = new Post(postData);
+            const newPost = new Post({imageUrl, header, description});
             await newPost.save();
             console.log("post created successfully");
             res.status(200).json({messsage : "success"});
         }
         catch(e){
+
             console.log(e.message);
+            res.status(500).json({message : "error"});
         }
     }
 

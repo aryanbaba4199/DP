@@ -5,6 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
+import { Dialog } from "@mui/material";
 
 import Bottom from "../Helper/bottom";
 import { auth } from "../../utils/firebaseAuth";
@@ -12,7 +13,7 @@ import { auth } from "../../utils/firebaseAuth";
 const WeddingBooking = () => {
 
   const rzrKey = process.env.RZR_TEST_KEY;
-  
+
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -24,7 +25,8 @@ const WeddingBooking = () => {
   const [budget, setBudget] = useState(50000);
   const [orderId, setOrderId] = useState('');
   const [pid, setPid] = useState('');
-  
+  const [bookingRes, setBookingRes] = useState('');
+
 
 
   const router = useRouter();
@@ -161,7 +163,7 @@ const WeddingBooking = () => {
       alert('Razorpay sdk failed')
     }
     const data = await axios.post('/api/createOrder', { amount: (((budget * 10) / 100) * 100) });
-    
+
 
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_LIVE,
@@ -213,39 +215,39 @@ const WeddingBooking = () => {
 
   //_________________Handling Booking Information _____________
   const handleBook = async () => {
-    if (auth.updateCurrentUser) {
+    if (auth.currentUser) {
       toast("Booking In process...");
 
       setBookingConfirmed(true);
       let time = new Date().toISOString().split("T")[0];
       let email = "";
       let status = "Processing...";
-      
+
       if (auth.currentUser) {
         email = auth.currentUser.email;
       }
-      
-      
 
-      const bookingData =  {
-        name,
-        email,
-        address,
-        mobile,
-        selectedServices: services,
-        msg,
-        selectedFunctionType,
-        time,
-        status,
-        pid,
-        budget,
+
+
+      const bookingData = {
+        
       };
 
       try {
         let messagecode = "createbooking";
         const response = await axios.post(
           "/api/bookingHandler",
-          { messagecode, bookingData },
+          { messagecode, name,
+            email,
+            address,
+            mobile,
+            selectedServices: services,
+            msg,
+            selectedFunctionType,
+            time,
+            status,
+            pid,
+            budget, },
           {
             headers: {
               "Content-Type": "application/json",
@@ -254,28 +256,23 @@ const WeddingBooking = () => {
         );
 
         if (response.status === 200) {
+          setBookingRes('200');
           console.log("Success");
           setBookingConfirmed(true);
           router.push("/DP/orderStatus");
 
         } else {
+          setBookingRes('400')
           setBookingConfirmed(true);
         }
       } catch (error) {
+        setBookingRes('200');
         console.error("Error:", error);
       }
 
 
     } else {
-      toast.error(
-        <>
-          <p>Sign in mandatory for Booking...</p>
-
-          <button className="bio btn-support" onClick={() => signIn()}>
-            Sign in
-          </button>
-        </>
-      );
+      setBookingRes('404')
     }
   };
 
@@ -308,7 +305,7 @@ const WeddingBooking = () => {
 
             <div className="grid">
               <label
-                
+
                 className="p-2 font-semibold text-lg"
               >
                 Location
@@ -327,7 +324,7 @@ const WeddingBooking = () => {
 
             <div className="grid">
               <label
-                
+
                 className="p-2 font-semibold text-lg"
               >
                 Mobile No.
@@ -403,13 +400,13 @@ const WeddingBooking = () => {
             type="number"
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
-            
+
           />
         </div>
 
         <div className="flex justify-center">
           <label
-            
+
             className="mx-4 font-serif text-blue-800"
           >
             Explain your Function
@@ -426,12 +423,19 @@ const WeddingBooking = () => {
           <span className="input-highlight"></span>
         </div>
 
-        <div className="flex justify-center items-center font-semibold font-serif text-xl">
+        <div className="flex gap-4 justify-center items-center font-semibold font-serif text-xl">
+          <h2
+            onClick={handleBook}
+            className="bg-black p-1 px-4 rounded-md btn text-white"
+          >
+            Book
+          </h2>
+
           <h2
             onClick={handlePayment}
             className="bg-black p-1 px-4 rounded-md btn text-white"
           >
-            Book
+            Pay 10%
           </h2>
         </div>
         <div className="flex justify-center items-center mt-8 text-2xl font-semibold">
@@ -519,6 +523,39 @@ const WeddingBooking = () => {
 
         <ToastContainer />
       </div>
+      <Dialog open={bookingRes === '200'}>
+                <div className='flex flex-col justify-center items-center px-4 bg-gray-700 text-white'>
+                    <p className='bg-slate-900 text-white px-4 my-4 rounded-md text-xl '>Success</p>
+                    <p className=''>Your Booking is under process...</p>
+                    <Link href='/DP/orderstatus'
+                      className=" btn bg-purple-800 my-2 px-2 rounded-sm p-1"
+                    >Check Order Status</Link>
+                    <button onClick={() => setRes("")}
+                        className="p-1 my-4 bg-green-600 rounded-lg w-20 hidden md:flex justify-center  btn font-semibold"
+                    >Close</button>
+                </div>
+            </Dialog>
+            <Dialog open={bookingRes === '404'}>
+                <div className='flex flex-col justify-center items-center px-4 bg-gray-700 text-white'>
+                    <p className='bg-slate-900 text-white px-4 my-4 rounded-md text-xl '>Sign in required</p>
+                    <p className=''>You are not Logged In </p>
+                    <p> Please sign in first for booking </p>
+                    <Link href='/Authentication/login'
+                       className="p-1 my-4 bg-green-600 rounded-lg w-20  md:flex justify-center  btn font-semibold"
+                    >Sign in </Link>
+                    
+                </div>
+            </Dialog>
+      <Dialog open={bookingRes === '400'}>
+        <div className='flex flex-col justify-center items-center px-4 bg-gray-700 text-white'>
+          <p className='bg-slate-900 text-white px-4 my-4 rounded-md text-xl '>Failed</p>
+          <p className=''>Something Went Wrong in submission...</p>
+
+          <button onClick={() => setRes("")}
+            className="p-1 my-4 bg-green-600 rounded-lg w-20  md:flex justify-center  btn font-semibold"
+          >OK</button>
+        </div>
+      </Dialog>
     </>
   );
 };
