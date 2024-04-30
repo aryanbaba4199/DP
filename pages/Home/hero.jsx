@@ -19,6 +19,7 @@ import { MdCameraRoll } from "react-icons/md";
 const Hero = () => {
   useEffect(() => {
     Aos.init();
+   
   }, []);
 
   const fdbkinput = (fdbkinputid) => {
@@ -69,11 +70,100 @@ const Hero = () => {
             expnses in EMI with minimum rate of Interest.
 
           </p>
-
-          <span className="mt-16 flex justify-center items-center bg-gradient-to-r from-black via-purple-800 to-red-700 bg-clip-text">
+          <div 
+          data-aos="zoom-in-down"
+          data-aos-delay="200"
+          data-aos-duration="1000"
+          className="mt-16 flex justify-center items-center text-3xl bg-gradient-to-r font-mono font-semibold from-black via-purple-600 to-red-600 bg-clip-text">
+          <p
+            data-aos="zoom-in-down"
+            data-aos-delay="2000"
+            data-aos-duration="2000"
+          >
             <IoCallSharp className="mt-2 mr-3 text-2xl text-slate-900" />
-            <p className="text-3xl font-semibold text-transparent">+91-9525751244</p>
-          </span>
+          </p>
+          <p
+          
+            data-aos="zoom-in-down"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            +91
+          </p>
+          <p
+          className="ml-2"
+            data-aos="zoom-in-down"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            9
+          </p>
+          <p
+            data-aos="fade-left"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            8
+          </p>
+          <p
+            data-aos="fade-right"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            3
+          </p>
+          <p
+            data-aos="flip-right"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            5
+          </p>
+          <p
+            data-aos="flip-left"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            7
+          </p>
+          <p
+            data-aos="zoom-in-down"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            7
+          </p>
+          <p
+            data-aos="zoom-in-up"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            6
+          </p>
+          <p
+            data-aos="zoom-in-left"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            7
+          </p>
+          <p
+            data-aos="zoom-in-right"
+            data-aos-delay="3000"
+            data-aos-duration="2000"
+          >
+            6
+          </p>
+          <p
+            data-aos="fade-up-left"
+            data-aos-delay="3000"
+            data-aos-duration="3000"
+          >
+            8
+          </p>
+          </div>
+
+          
         </div>
         <div className=""
           data-aos="zoom-in-out"
@@ -141,6 +231,7 @@ const Hero = () => {
         <div className=" ">
           <FeedbackData />
         </div>
+        
         <Feedback />
         <div className="mt-16">
           <Contact />

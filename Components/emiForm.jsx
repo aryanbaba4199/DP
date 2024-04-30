@@ -209,7 +209,7 @@ const emiForm = ({setRes, setOpen}) => {
 
                 </div>
                 <div className='flex justify-center items-center mt-4'>
-                    <button className="p-1 bg-black text-white rounded-lg w-20 hidden md:flex justify-center  btn font-semibold" onClick={handleSubmit}>
+                    <button className="p-1 bg-black text-white rounded-lg w-20  md:flex justify-center  btn font-semibold" onClick={handleSubmit}>
                         Submit</button>
                 </div>
             </div>

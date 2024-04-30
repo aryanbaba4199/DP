@@ -15,10 +15,10 @@ const shadiOnEmi = () => {
         <>
             <Nav />
             <div className='mt-4 px-8'>
-                <div className='flex flex-row justify-between'>
+                <div className='flex md:flex-row flex-col justify-between'>
                     <div>
                         <p className='text-purple-900 text-4xl font-serif font-semibold'>EMI Starting From 1,999/Lakh</p>
-                        <div className='flex justify-center items-center'>
+                        <div className='flex md:flex-row flex-col justify-center items-center'>
                             <Image
                                 src={EmiPic}
                                 width={1000}
@@ -61,20 +61,20 @@ const shadiOnEmi = () => {
                 <div>
 
                 </div>
-                <div className='grid grid-cols-8 items-center'>
-                    <p className='text-lg font-serif text-blue-950'>Check Eligibility</p>
+                <div className='grid md:grid-cols-8 grid-cols-1 items-center md:mt-0 mt-8'>
+                    <p className='text-lg font-serif text-blue-950 md:mt-0 mt-4'>Check Eligibility</p>
                     <span className='w-24 mx-[2px] bg-purple-600 h-[2px]'></span>
-                    <p className='text-lg font-serif text-blue-950'>Upload Documents</p>
+                    <p className='text-lg font-serif text-blue-950 md:mt-0 mt-4'>Upload Documents</p>
                     <span className='w-24 mx-[2px] bg-purple-600 h-[2px]'></span>
-                    <p className='text-lg font-serif text-blue-950'>Document Verification</p>
+                    <p className='text-lg font-serif text-blue-950 md:mt-0 mt-4'>Document Verification</p>
                     <span className='w-24 mx-[2px] bg-purple-600 h-[2px]'></span>
-                    <p className='text-lg font-serif text-blue-950'>Loan Disbursed</p>
+                    <p className='text-lg font-serif text-blue-950 md:mt-0 mt-4'>Loan Disbursed</p>
                     <span className='w-24 mx-[2px] bg-purple-600 h-[2px]'></span>
 
                 </div>
                 <div className='flex justify-center items-center py-8'>
                     <button onClick={(e) => setOpen(true)}
-                        className="p-1 bg-green-600 text-white rounded-lg w-20 hidden md:flex justify-center  btn font-semibold">Apply</button>
+                        className="p-1 bg-green-600 text-white rounded-lg w-20  md:flex justify-center  btn font-semibold">Apply</button>
                 </div>
 
             </div>

@@ -77,7 +77,7 @@ function Posts() {
           <h1 className="dream font-bold mb-4 w-full p-2 my-5 text-center text-2xl font-serif text-purple-900">Glimpse</h1>
 
           {posts.map((post) => (
-            <div key={post._id} className="grid grid-rows-3 items-center ">
+            <div key={post._id} className="grid md:grid-rows-3 grid-cols-1 items-center ">
 
               <div className="">
               <Image

@@ -1,0 +1,3 @@
+
+have to improve payment gateway
+have to add razorpay terms and conditions

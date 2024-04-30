@@ -25,6 +25,10 @@ const Serviceprovider = ({ imageSrc, serviceName}) => (
 export default function service() {
   
     const srcontainer = [
+      {
+        imageSrc: 'https://img.freepik.com/premium-vector/agreement-agent-client-shaking-hands-concept-flat-illustration_720185-3239.jpg?w=740',
+        serviceName: 'Shadi On EMI'
+      },
         {
           imageSrc: 'https://img.freepik.com/premium-photo/speaker-business-conference-presentation_916191-61697.jpg?w=1060',
           serviceName: 'Wedding Planning'
